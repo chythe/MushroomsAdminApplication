@@ -15,11 +15,11 @@ object AdminApplication extends JFXApp {
   // We load here FXML content using JavaFX directly.
   // It is important to provide type for the element loaded,
   // though it can be a generic, here use `javafx.scene.parent`.
-  val root = FXMLView(new File("src/main/resources/fxml/Dashboard.fxml")
+  val root = FXMLView(new File("src/main/resources/fxml/Login.fxml")
     .toURI().toURL(), NoDependencyResolver)
 
   stage = new JFXApp.PrimaryStage() {
-    title = "FXML GridPane Demo"
+    title = "Mushrooms Admin Application"
     scene = new Scene(root)
   }
 }

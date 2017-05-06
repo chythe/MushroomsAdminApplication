@@ -32,16 +32,17 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" >
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DashboardController">
     <top>
         <VBox BorderPane.alignment="CENTER">
             <children>
-                <MenuBar>
+                <MenuBar fx:id="dashboardMenuBar">
                     <menus>
                         <Menu mnemonicParsing="false" text="File">
                             <items>
+                        <MenuItem fx:id="logoutMenuItem" mnemonicParsing="false" onAction="#logoutMenuItemOnAction" text="Logout" />
                                 <SeparatorMenuItem mnemonicParsing="false" />
-                                <MenuItem fx:id="exitMenuItem" mnemonicParsing="false" text="Exit" />
+                                <MenuItem fx:id="exitMenuItem" mnemonicParsing="false" onAction="#exitMenuItemOnAction" text="Exit" />
                             </items>
                         </Menu>
                     </menus>
@@ -55,24 +56,6 @@
                 <Tab text="Tab1">
                     <content>
 
-                    </content>
-                    <content>
-                        <VBox prefHeight="200.0" prefWidth="100.0">
-                            <children>
-                                <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
-                                    <children>
-                                        <Label fx:id="inputPicturePathLabel" text="Input Picture Path:" />
-                                        <TextField fx:id="inputPicturePathTextField" />
-                                        <Button fx:id="browseButton" mnemonicParsing="false" text="Browse" />
-                                    </children>
-                                </HBox>
-                                <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefHeight="100.0" prefWidth="200.0">
-                                    <children>
-                                        <Button id="detectFaceButton" fx:id="detectFaceButton" mnemonicParsing="false" text="Detect Face" />
-                                    </children>
-                                </HBox>
-                            </children>
-                        </VBox>
                     </content>
                 </Tab>
                 <Tab text="Tab2">
