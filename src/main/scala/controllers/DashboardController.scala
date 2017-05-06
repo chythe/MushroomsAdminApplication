@@ -20,7 +20,9 @@ class DashboardController(
                            private val dashboardMenuBar: MenuBar,
                            private val exitMenuItem: MenuItem,
                            private val logoutMenuItem: MenuItem,
-                           private val helpButton: Button) {
+                           private val helpButton: Button
+                         ) {
+
   /**
     *
     * @param event
