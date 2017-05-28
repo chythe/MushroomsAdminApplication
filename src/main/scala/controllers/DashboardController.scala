@@ -3,6 +3,8 @@ package controllers
 import java.io.File
 import javafx.{scene => jfxsc, stage => jfxst}
 
+import services.AuthenticationService
+
 import scalafx.application.Platform
 import scalafx.event.ActionEvent
 import scalafx.scene.{Parent, Scene}
@@ -43,6 +45,8 @@ class DashboardController(
     stage.hide() //optional
     stage.setScene(loginScene)
     stage.show()
+    stage.setFullScreen(false)
+    AuthenticationService.logout()
   }
 
   /**
@@ -57,8 +61,11 @@ class DashboardController(
     }
     val result = alert.showAndWait()
     result match {
-      case Some(ButtonType.OK) => Platform.exit()
-      case _                   => alert.close()
+      case Some(ButtonType.OK) => {
+        AuthenticationService.logout()
+        Platform.exit()
+      }
+      case _ => alert.close()
     }
   }
 }

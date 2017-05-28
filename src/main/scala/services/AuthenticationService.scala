@@ -26,12 +26,17 @@ object AuthenticationService {
   /**
     *
     */
+  var url: Option[String] = None
+
+  /**
+    *
+    */
   @throws(classOf[LoginFailedException])
   def login(address: String, email: String, password: String) = {
-    val url = address + "/login"
+    val urlString = address + "/login"
     val params = "email=" + email + "&password=" + password
     try {
-      val response = Http(url).postData(params)
+      val response = Http(urlString).postData(params)
         .header("Content-Type", "application/x-www-form-urlencoded")
         .option(HttpOptions.readTimeout(10000)).asString
       if (response.code != 200)
@@ -43,9 +48,19 @@ object AuthenticationService {
 //      UsersContainer.currentUser match {
 //        case Some(u) => if (!u.role.equals("ADMIN")) throw new LoginFailedException("No permissions.")
 //      }
+      url = Option(address)
     } catch {
       case e @ (_: MalformedURLException | _: IllegalArgumentException) =>
         throw new LoginFailedException("Bad address.")
+    }
+  }
+
+  def logout() = {
+    url match {
+      case Some(u) => {
+        val urlString = u + "/logout"
+        val response = Http(urlString).asString
+      }
     }
   }
 }

@@ -2,6 +2,8 @@ import java.io.File
 import javafx.event.EventHandler
 import javafx.stage.WindowEvent
 
+import services.AuthenticationService
+
 import scalafx.application.{JFXApp, Platform}
 import scalafx.scene.Scene
 import scalafxml.core.{DependenciesByType, FXMLView, NoDependencyResolver}
@@ -27,7 +29,10 @@ object AdminApplication extends JFXApp {
     }
     val result = alert.showAndWait()
     result match {
-      case Some(ButtonType.OK) => Platform.exit()
+      case Some(ButtonType.OK) => {
+        AuthenticationService.logout()
+        Platform.exit()
+      }
       case _ => alert.close()
     }
   })

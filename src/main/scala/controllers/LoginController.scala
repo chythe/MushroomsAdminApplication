@@ -46,6 +46,7 @@ class LoginController(
     stage.hide() //optional
     stage.setScene(dashboardScene)
     stage.show()
+    stage.setFullScreen(true)
   }
   /**
     *
