@@ -11,17 +11,25 @@ import scalafx.stage.Stage
 import scalafxml.core.{FXMLView, NoDependencyResolver}
 import scalafxml.core.macros.sfxml
 import scalafx.Includes._
+import scalafx.scene.control.Alert.AlertType
+import scalafx.scene.control._
+import scalafx.scene.layout.BorderPane
 
 /**
   *
   */
 @sfxml
 class DashboardController(
+                           private val borderPane: BorderPane,
                            private val dashboardMenuBar: MenuBar,
                            private val exitMenuItem: MenuItem,
                            private val logoutMenuItem: MenuItem,
                            private val helpButton: Button
                          ) {
+  /**
+    *
+    */
+//  val stage: Stage = borderPane.getScene().getWindow().asInstanceOf[jfxst.Stage]
 
   /**
     *
@@ -31,16 +39,26 @@ class DashboardController(
     val loginParent: Parent = FXMLView(new File("src/main/resources/fxml/Login.fxml")
       .toURI().toURL(), NoDependencyResolver)
     val loginScene: Scene = new Scene(loginParent)
-    val appStage: Stage = dashboardMenuBar.getScene().getWindow().asInstanceOf[jfxst.Stage]
-    appStage.hide(); //optional
-    appStage.setScene(loginScene);
-    appStage.show();
+    val stage: Stage = dashboardMenuBar.getScene().getWindow().asInstanceOf[jfxst.Stage]
+    stage.hide() //optional
+    stage.setScene(loginScene)
+    stage.show()
   }
 
   /**
     *
     */
-  def exitMenuItemOnAction() = {
-    Platform.exit()
+  def exitMenuItemOnAction(event: ActionEvent) = {
+    val stage: Stage = dashboardMenuBar.getScene().getWindow().asInstanceOf[jfxst.Stage]
+    val alert = new Alert(AlertType.Confirmation) {
+      initOwner(stage)
+      title = "Confirmation Exit"
+      headerText = "Are you sure you want to exit?"
+    }
+    val result = alert.showAndWait()
+    result match {
+      case Some(ButtonType.OK) => Platform.exit()
+      case _                   => alert.close()
+    }
   }
 }

@@ -8,13 +8,19 @@ addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.0" cross CrossVersion.fu
 
 libraryDependencies ++= {
   val akkaVersion = "2.5.1"
-  val sprayVersion = "1.3.3"
-  val scalafxVersion = "0.3"
+//  val sprayVersion = "1.3.3"
+  val scalafxmlVersion = "0.3"
+  val scalafxVersion = "8.0.92-R10"
+  val scalajVersion = "2.3.0"
+  val liftwebVersion = "3.1.0-M3"
   Seq(
-    "io.spray" % "spray-httpx_2.11" % sprayVersion,
-    "io.spray" % "spray-client_2.11" % sprayVersion,
+    "net.liftweb" %% "lift-json" % liftwebVersion,
+    "org.scalaj" %% "scalaj-http" % scalajVersion,
+//    "io.spray" % "spray-httpx_2.11" % sprayVersion,
+//    "io.spray" % "spray-client_2.11" % sprayVersion,
     "com.typesafe.akka" %% "akka-actor" % akkaVersion,
-    "io.spray" %%  "spray-json" % sprayVersion,
-    "org.scalafx" %% "scalafxml-core-sfx8" % scalafxVersion
+//    "io.spray" %%  "spray-json" % sprayVersion,
+    "org.scalafx" %% "scalafxml-core-sfx8" % scalafxmlVersion,
+    "org.scalafx" %% "scalafx" % scalafxVersion
   )
 }

@@ -4,14 +4,14 @@ package model
   * Created by Mateusz on 06.05.2017.
   */
 case class User(
-                 id: Long,
+                 id: String,
                  username: String,
-                 email: String,
-                 password: String,
-                 role: String,
                  firstName: String,
                  lastName: String,
+                 email: String,
                  birthDate: String,
-                 gender: String
+                 gender: String,
+                 role: String,
+                 level: String
                ) {
 }

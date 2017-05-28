@@ -6,6 +6,7 @@
     Version     : 1.0
 -->
 
+<?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -32,7 +33,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DashboardController">
+<BorderPane fx:id="borderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.DashboardController">
     <top>
         <VBox BorderPane.alignment="CENTER">
             <children>
@@ -53,16 +54,175 @@
     <center>
         <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
             <tabs>
-                <Tab text="Tab1">
+                <Tab text="Users">
                     <content>
 
                     </content>
+               <content>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <TableView prefHeight="200.0" prefWidth="200.0">
+                          <columns>
+                            <TableColumn prefWidth="75.0" text="User ID" />
+                            <TableColumn prefWidth="75.0" text="Username" />
+                              <TableColumn prefWidth="75.0" text="Email" />
+                              <TableColumn prefWidth="75.0" text="Password" />
+                              <TableColumn prefWidth="75.0" text="Role" />
+                              <TableColumn prefWidth="75.0" text="First Name" />
+                              <TableColumn prefWidth="75.0" text="Last Name" />
+                              <TableColumn prefWidth="75.0" text="Birth Date" />
+                              <TableColumn prefWidth="75.0" text="Country" />
+                              <TableColumn prefWidth="75.0" text="City" />
+                              <TableColumn prefWidth="75.0" text="Gender" />
+                              <TableColumn prefWidth="75.0" text="Level" />
+                              <TableColumn prefWidth="75.0" text="Photo" />
+                          </columns>
+                        </TableView>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+               </content>
                 </Tab>
-                <Tab text="Tab2">
+                <Tab text="Trips">
                     <content>
 
                     </content>
+               <content>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <TableView prefHeight="200.0" prefWidth="200.0">
+                          <columns>
+                            <TableColumn prefWidth="75.0" text="Trip ID" />
+                            <TableColumn prefWidth="75.0" text="Place" />
+                              <TableColumn prefWidth="75.0" text="Date and Time" />
+                          </columns>
+                        </TableView>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+               </content>
                 </Tab>
+            <Tab text="Discoveries">
+               <content>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <TableView prefHeight="200.0" prefWidth="200.0">
+                          <columns>
+                            <TableColumn prefWidth="75.0" text="Discovery ID" />
+                            <TableColumn prefWidth="75.0" text="Trip ID" />
+                              <TableColumn prefWidth="75.0" text="Mushroom Species ID" />
+                              <TableColumn prefWidth="75.0" text="User ID" />
+                              <TableColumn prefWidth="75.0" text="Coordinate X" />
+                              <TableColumn prefWidth="75.0" text="Coordinate Y" />
+                              <TableColumn prefWidth="75.0" text="Photo" />
+                              <TableColumn prefWidth="75.0" text="Date and Time" />
+                          </columns>
+                        </TableView>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+               </content>
+            </Tab>
+            <Tab text="Friendships">
+               <content>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <TableView prefHeight="200.0" prefWidth="200.0">
+                           <columns>
+                              <TableColumn prefWidth="75.0" text="User ID" />
+                              <TableColumn prefWidth="75.0" text="Friend ID" />
+                              <TableColumn prefWidth="75.0" text="Date and Time" />
+                           </columns>
+                        </TableView>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+               </content>
+            </Tab>
+            <Tab text="Comments">
+               <content>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <TableView prefHeight="200.0" prefWidth="200.0">
+                          <columns>
+                            <TableColumn prefWidth="75.0" text="Comment ID" />
+                            <TableColumn prefWidth="75.0" text="Target ID" />
+                              <TableColumn prefWidth="75.0" text="User ID" />
+                              <TableColumn prefWidth="75.0" text="Target" />
+                              <TableColumn prefWidth="75.0" text="Content" />
+                              <TableColumn prefWidth="75.0" text="Date and Time" />
+                          </columns>
+                        </TableView>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+               </content>
+            </Tab>
+            <Tab text="Scores">
+               <content>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <TableView prefHeight="200.0" prefWidth="200.0">
+                           <columns>
+                            <TableColumn prefWidth="75.0" text="Score ID" />
+                            <TableColumn prefWidth="75.0" text="Discovery ID" />
+                              <TableColumn prefWidth="75.0" text="User ID" />
+                              <TableColumn prefWidth="75.0" text="Value" />
+                           </columns>
+                        </TableView>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+               </content>
+            </Tab>
+            <Tab text="Tags">
+               <content>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <TableView prefHeight="200.0" prefWidth="200.0">
+                          <columns>
+                            <TableColumn prefWidth="75.0" text="Tag ID" />
+                            <TableColumn prefWidth="75.0" text="Discovery ID" />
+                              <TableColumn prefWidth="75.0" text="Name" />
+                          </columns>
+                        </TableView>
+                     </children>
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                  </VBox>
+               </content>
+            </Tab>
+            <Tab text="Mushrooms Types">
+               <content>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <padding>
+                        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                     </padding>
+                     <children>
+                        <TreeTableView prefHeight="200.0" prefWidth="200.0">
+                          <columns>
+                            <TreeTableColumn prefWidth="75.0" text="Type" />
+                            <TreeTableColumn prefWidth="75.0" text="ID" />
+                              <TreeTableColumn prefWidth="75.0" text="Name" />
+                          </columns>
+                        </TreeTableView>
+                     </children>
+                  </VBox>
+               </content>
+            </Tab>
             </tabs>
         </TabPane>
     </center>

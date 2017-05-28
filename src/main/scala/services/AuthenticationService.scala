@@ -1,9 +1,12 @@
 package services
 
-import client.SprayHttpClient
-import exceptions.LoginFailedException
+import java.net.MalformedURLException
 
-import scala.collection.immutable.Map
+import exceptions.LoginFailedException
+import model.User
+import model.containers.UsersContainer
+import net.liftweb.json._
+import scalaj.http._
 
 /**
   * Created by Mateusz on 06.05.2017.
@@ -13,13 +16,36 @@ object AuthenticationService {
   /**
     *
     */
+  implicit val formats = DefaultFormats
+
+  /**
+    *
+    */
+  var token: Option[String] = None
+
+  /**
+    *
+    */
   @throws(classOf[LoginFailedException])
   def login(address: String, email: String, password: String) = {
-    def sprayHttpClient = new SprayHttpClient
-    def url = address + "/login"
-    def body = "email=" + email + "&password=" + password
-    def params = Map[String, String]()
-    def headers = Map("Content-Type" -> "application/x-www-form-urlencoded")
-    sprayHttpClient.post(url, body, params, headers)
+    val url = address + "/login"
+    val params = "email=" + email + "&password=" + password
+    try {
+      val response = Http(url).postData(params)
+        .header("Content-Type", "application/x-www-form-urlencoded")
+        .option(HttpOptions.readTimeout(10000)).asString
+      if (response.code != 200)
+        throw new LoginFailedException("Bad email or password.")
+      token = response.header("Authorization") match {
+        case Some(s) => Option(s.replace("Bearer ", ""))
+      }
+      UsersContainer.currentUser = Option(parse(response.body).extract[User])
+//      UsersContainer.currentUser match {
+//        case Some(u) => if (!u.role.equals("ADMIN")) throw new LoginFailedException("No permissions.")
+//      }
+    } catch {
+      case e @ (_: MalformedURLException | _: IllegalArgumentException) =>
+        throw new LoginFailedException("Bad address.")
+    }
   }
 }

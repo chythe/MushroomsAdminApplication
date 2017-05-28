@@ -1,20 +1,16 @@
 import java.io.File
-import scalafx.application.JFXApp
+import javafx.event.EventHandler
+import javafx.stage.WindowEvent
+
+import scalafx.application.{JFXApp, Platform}
 import scalafx.scene.Scene
 import scalafxml.core.{DependenciesByType, FXMLView, NoDependencyResolver}
 import scalafx.Includes._
+import scalafx.scene.control.{Alert, ButtonType}
+import scalafx.scene.control.Alert.AlertType
 
 object AdminApplication extends JFXApp {
 
-//  val resource = getClass.getResource("/../resources/fxml/Dashboard.fxml")
-//  if (resource == null) {
-//    throw new jio.IOException("Cannot load resource: Dashboard.fxml")
-//  }
-
-  // NOTE: ScalaFX doe not yet provide a wrapper fro FXMLLoader (2012.11.12)
-  // We load here FXML content using JavaFX directly.
-  // It is important to provide type for the element loaded,
-  // though it can be a generic, here use `javafx.scene.parent`.
   val root = FXMLView(new File("src/main/resources/fxml/Login.fxml")
     .toURI().toURL(), NoDependencyResolver)
 
@@ -22,4 +18,17 @@ object AdminApplication extends JFXApp {
     title = "Mushrooms Admin Application"
     scene = new Scene(root)
   }
+
+  stage.getScene().getWindow().setOnCloseRequest((event: WindowEvent) => {
+    val alert = new Alert(AlertType.Confirmation) {
+      initOwner(stage)
+      title = "Confirmation Exit"
+      headerText = "Are you sure you want to exit?"
+    }
+    val result = alert.showAndWait()
+    result match {
+      case Some(ButtonType.OK) => Platform.exit()
+      case _ => alert.close()
+    }
+  })
 }
