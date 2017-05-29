@@ -14,4 +14,40 @@ case class User(
                  role: String,
                  level: String
                ) {
+
+  def getId(): String = {
+    return id
+  }
+
+  def getUsername(): String = {
+    return username
+  }
+
+  def getFirstName(): String = {
+    return firstName
+  }
+
+  def getLastName(): String = {
+    return lastName
+  }
+
+  def getEmail(): String = {
+    return email
+  }
+
+  def getBirthDate(): String = {
+    return birthDate
+  }
+
+  def getGender(): String = {
+    return gender
+  }
+
+  def getRole(): String = {
+    return role
+  }
+
+  def getLevel(): String = {
+    return level
+  }
 }
