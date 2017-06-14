@@ -12,8 +12,10 @@ case class User(
                  birthDate: String,
                  gender: String,
                  role: String,
-                 level: String
+                 level: String,
+                 photo: Array[Byte]
                ) {
+
 
   def getId(): String = {
     return id

@@ -7,10 +7,10 @@ import java.util.ResourceBundle
 import javafx.collections.{FXCollections, ObservableList}
 import javafx.{scene => jfxsc, stage => jfxst}
 import javafx.fxml.{FXML, Initializable}
+import javafx.scene.control.TableColumn.CellEditEvent
 import javafx.scene.control.cell.PropertyValueFactory
 
-import services.UserService
-import services.AuthenticationService
+import services.{AuthenticationService, DiscoveryService, TripService, UserService}
 
 import scalafx.application.Platform
 import scalafx.event.ActionEvent
@@ -36,13 +36,15 @@ class DashboardController (
                             private val exitMenuItem: MenuItem,
                             private val logoutMenuItem: MenuItem,
                             private val usersTable: TableView[User],
+                            private val tripsTable: TableView[Trip],
+                            private val discoveriesTable: TableView[Discovery],
                             private val helpButton: Button
                          )
   {
-    val users = UserService.getAll(AuthenticationService.token.get)
-    val usersList: ObservableList[User] = FXCollections.observableArrayList();
-    users.get.foreach(u => usersList.add(u))
-    usersTable.setItems(usersList);
+
+    loadUsers();
+    loadTrips();
+    loadDiscoveries();
 
     /**
       *
@@ -80,5 +82,29 @@ class DashboardController (
       }
     }
 
+    def loadUsers() = {
+      val users = UserService.getAll(AuthenticationService.token.get)
+      val usersList: ObservableList[User] = FXCollections.observableArrayList();
+      users.get.foreach(u => usersList.add(u))
+      usersTable.setItems(usersList);
+    }
 
+    def loadTrips() = {
+      val trips = TripService.getAll(AuthenticationService.token.get)
+      val tripsList: ObservableList[Trip] = FXCollections.observableArrayList();
+      trips.get.foreach(u => tripsList.add(u))
+      tripsTable.setItems(tripsList);
+    }
+
+    def loadDiscoveries() = {
+      val discoveries = DiscoveryService.getAll(AuthenticationService.token.get)
+      val discoveriesList: ObservableList[Discovery] = FXCollections.observableArrayList();
+      discoveries.get.foreach(u => discoveriesList.add(u))
+      discoveriesTable.setItems(discoveriesList);
+    }
+
+    def updateUser(event: CellEditEvent[User, String]) = {
+      // TODO pobrac zedytowanego usera
+      UserService.update(AuthenticationService.token.get, event.getRowValue())
+    }
 }

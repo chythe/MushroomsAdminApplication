@@ -13,6 +13,7 @@ libraryDependencies ++= {
   val scalafxVersion = "8.0.92-R10"
   val scalajVersion = "2.3.0"
   val liftwebVersion = "3.1.0-M3"
+  val gsonVersion = "2.8.1"
   Seq(
     "net.liftweb" %% "lift-json" % liftwebVersion,
     "org.scalaj" %% "scalaj-http" % scalajVersion,
@@ -21,6 +22,7 @@ libraryDependencies ++= {
     "com.typesafe.akka" %% "akka-actor" % akkaVersion,
 //    "io.spray" %%  "spray-json" % sprayVersion,
     "org.scalafx" %% "scalafxml-core-sfx8" % scalafxmlVersion,
-    "org.scalafx" %% "scalafx" % scalafxVersion
+    "org.scalafx" %% "scalafx" % scalafxVersion,
+    "com.google.code.gson" % "gson" % gsonVersion
   )
 }
