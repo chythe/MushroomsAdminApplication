@@ -34,8 +34,7 @@ class LoginController(
     */
 //  val stage: Stage = gridPane.getScene().getWindow().asInstanceOf[jfxst.Stage]
   addressTextField.setText("http://localhost:8080");
-  emailTextField.setText("pawcio@gmail.com");
-  passwordPasswordField.setText("pawcio123");
+
   /**
     *
     * @param event

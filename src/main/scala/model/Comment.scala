@@ -5,8 +5,10 @@ package model
   */
 case class Comment(
                     id: Long,
+                    discoveryId: Long,
+                    userId: Long,
+                    targetCommentId: Long,
                     content: String,
-                    date: String,
-                    time: String
+                    dateTime: String
                   ) {
 }

@@ -6,48 +6,16 @@ package model
 case class User(
                  id: String,
                  username: String,
+                 email: String,
+                 password: String,
+                 role: String,
                  firstName: String,
                  lastName: String,
-                 email: String,
                  birthDate: String,
+                 country: String,
+                 city: String,
                  gender: String,
-                 role: String,
-                 level: String
+                 level: String,
+                 photo: Any
                ) {
-
-  def getId(): String = {
-    return id
-  }
-
-  def getUsername(): String = {
-    return username
-  }
-
-  def getFirstName(): String = {
-    return firstName
-  }
-
-  def getLastName(): String = {
-    return lastName
-  }
-
-  def getEmail(): String = {
-    return email
-  }
-
-  def getBirthDate(): String = {
-    return birthDate
-  }
-
-  def getGender(): String = {
-    return gender
-  }
-
-  def getRole(): String = {
-    return role
-  }
-
-  def getLevel(): String = {
-    return level
-  }
 }

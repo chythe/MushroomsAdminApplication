@@ -4,7 +4,6 @@ import java.net.MalformedURLException
 
 import exceptions.LoginFailedException
 import model.User
-import model.containers.UsersContainer
 import net.liftweb.json._
 import scalaj.http._
 
@@ -12,6 +11,11 @@ import scalaj.http._
   * Created by Mateusz on 06.05.2017.
   */
 object AuthenticationService {
+
+  /**
+    *
+    */
+  var currentUser: Option[User] = None
 
   /**
     *
@@ -44,7 +48,7 @@ object AuthenticationService {
       token = response.header("Authorization") match {
         case Some(s) => Option(s.replace("Bearer ", ""))
       }
-      UsersContainer.currentUser = Option(parse(response.body).extract[User])
+      currentUser = Option(parse(response.body).extract[User])
 //      UsersContainer.currentUser match {
 //        case Some(u) => if (!u.role.equals("ADMIN")) throw new LoginFailedException("No permissions.")
 //      }

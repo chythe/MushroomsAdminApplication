@@ -1,8 +1,8 @@
 package model
 
-/**
-  * Created by Mateusz on 06.05.2017.
-  */
-class MushroomGenus {
-
+class MushroomGenus(
+                     id: Long,
+                     mushFamilyId: Long,
+                     name: String
+                   ) {
 }

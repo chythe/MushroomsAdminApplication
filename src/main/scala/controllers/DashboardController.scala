@@ -24,7 +24,6 @@ import scalafx.scene.control.Alert.AlertType
 import scalafx.scene.control._
 import scalafx.scene.layout.BorderPane
 import model._
-import model.containers.UsersContainer
 
 /**
   *
@@ -39,10 +38,10 @@ class DashboardController (
                             private val helpButton: Button
                          )
   {
-    val users = UserService.getAll(AuthenticationService.token.get)
-    val usersList: ObservableList[User] = FXCollections.observableArrayList();
-    users.get.foreach(u => usersList.add(u))
-    usersTable.setItems(usersList);
+//    val users = UserService.getAll(AuthenticationService.token.get)
+//    val usersList: ObservableList[User] = FXCollections.observableArrayList();
+//    users.get.foreach(u => usersList.add(u))
+//    usersTable.setItems(usersList);
 
     /**
       *
