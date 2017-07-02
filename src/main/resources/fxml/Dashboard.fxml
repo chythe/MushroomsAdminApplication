@@ -40,25 +40,35 @@
                <content>
                   <VBox prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <TableView fx:id="usersTable" prefHeight="200.0" prefWidth="200.0">
+                        <TableView fx:id="usersTable" prefHeight="200.0" prefWidth="200.0" editable="true">
                           <columns>
 
                             <TableColumn prefWidth="75.0" text="User ID">
                               <cellValueFactory>
-                                  <PropertyValueFactory property="id" />
+                                  <PropertyValueFactory property="id"/>
                               </cellValueFactory>
                             </TableColumn>
 
+<<<<<<< .mine
                             <TableColumn prefWidth="75.0" text="Username">
+=======
+                            <TableColumn prefWidth="75.0" text="Username" onEditCommit="#updateUser">
+>>>>>>> .theirs
                                 <cellValueFactory>
                                     <PropertyValueFactory property="username" />
                                 </cellValueFactory>
+                                <cellFactory>
+                                    <TextFieldTableCell fx:factory="forTableColumn" />
+                                </cellFactory>
                             </TableColumn>
 
                               <TableColumn prefWidth="75.0" text="Email">
                                   <cellValueFactory>
                                       <PropertyValueFactory property="email" />
                                   </cellValueFactory>
+                                  <cellFactory>
+                                      <TextFieldTableCell fx:factory="forTableColumn" />
+                                  </cellFactory>
                               </TableColumn>
                               <TableColumn prefWidth="75.0" text="Password">
                                   <cellValueFactory>
@@ -69,16 +79,25 @@
                                   <cellValueFactory>
                                       <PropertyValueFactory property="role" />
                                   </cellValueFactory>
+                                  <cellFactory>
+                                      <TextFieldTableCell fx:factory="forTableColumn" />
+                                  </cellFactory>
                               </TableColumn>
-                              <TableColumn prefWidth="75.0" text="First Name">
+                              <TableColumn prefWidth="75.0" text="First Name" onEditCommit="#updateUser">
                                   <cellValueFactory>
                                       <PropertyValueFactory property="firstName" />
                                   </cellValueFactory>
+                                  <cellFactory>
+                                      <TextFieldTableCell fx:factory="forTableColumn" />
+                                  </cellFactory>
                               </TableColumn>
                               <TableColumn prefWidth="75.0" text="Last Name">
                                   <cellValueFactory>
                                       <PropertyValueFactory property="lastName" />
                                   </cellValueFactory>
+                                  <cellFactory>
+                                      <TextFieldTableCell fx:factory="forTableColumn" />
+                                  </cellFactory>
                               </TableColumn>
                               <TableColumn prefWidth="75.0" text="Birth Date">
                                   <cellValueFactory>
@@ -104,6 +123,9 @@
                                   <cellValueFactory>
                                       <PropertyValueFactory property="level" />
                                   </cellValueFactory>
+                                  <cellFactory>
+                                      <TextFieldTableCell fx:factory="forTableColumn" />
+                                  </cellFactory>
                               </TableColumn>
                               <TableColumn prefWidth="75.0" text="Photo" />
                           </columns>
@@ -122,11 +144,29 @@
                <content>
                   <VBox prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <TableView prefHeight="200.0" prefWidth="200.0">
+                        <TableView fx:id="tripsTable" prefHeight="200.0" prefWidth="200.0" editable="true">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="Trip ID" />
-                              <TableColumn prefWidth="75.0" text="Date and Time" />
-                            <TableColumn prefWidth="75.0" text="Place" />
+                              <TableColumn prefWidth="75.0" text="Trip ID" >
+                                  <cellValueFactory>
+                                      <PropertyValueFactory property="id" />
+                                  </cellValueFactory>
+                              </TableColumn>
+                              <TableColumn prefWidth="75.0" text="Date and Time" >
+                                  <cellValueFactory>
+                                      <PropertyValueFactory property="dateTime" />
+                                  </cellValueFactory>
+                                  <cellFactory>
+                                      <TextFieldTableCell fx:factory="forTableColumn" />
+                                  </cellFactory>
+                              </TableColumn>
+                              <TableColumn prefWidth="75.0" text="Place" >
+                                  <cellValueFactory>
+                                      <PropertyValueFactory property="place" />
+                                  </cellValueFactory>
+                                  <cellFactory>
+                                      <TextFieldTableCell fx:factory="forTableColumn" />
+                                  </cellFactory>
+                              </TableColumn>
                               <TableColumn prefWidth="75.0" text="Coordinate X" />
                               <TableColumn prefWidth="75.0" text="Coordinate Y" />
                               <TableColumn prefWidth="75.0" text="Radius" />
@@ -143,16 +183,41 @@
                <content>
                   <VBox prefHeight="200.0" prefWidth="100.0">
                      <children>
-                        <TableView prefHeight="200.0" prefWidth="200.0">
+                        <TableView fx:id="discoveriesTable" prefHeight="200.0" prefWidth="200.0" editable="true">
                           <columns>
-                            <TableColumn prefWidth="75.0" text="Discovery ID" />
+                              <TableColumn prefWidth="75.0" text="Discover ID" >
+                                  <cellValueFactory>
+                                      <PropertyValueFactory property="id" />
+                                  </cellValueFactory>
+                              </TableColumn>
                             <TableColumn prefWidth="75.0" text="Trip ID" />
                               <TableColumn prefWidth="75.0" text="Mushroom Species ID" />
                               <TableColumn prefWidth="75.0" text="User ID" />
-                              <TableColumn prefWidth="75.0" text="Coordinate X" />
-                              <TableColumn prefWidth="75.0" text="Coordinate Y" />
+                              <TableColumn prefWidth="75.0" text="Coordinate X">
+                                  <cellValueFactory>
+                                      <PropertyValueFactory property="coordinateX" />
+                                  </cellValueFactory>
+                                  <cellFactory>
+                                      <TextFieldTableCell fx:factory="forTableColumn" />
+                                  </cellFactory>
+                              </TableColumn>
+                              <TableColumn prefWidth="75.0" text="Coordinate Y" >
+                                  <cellValueFactory>
+                                      <PropertyValueFactory property="coordinateY" />
+                                  </cellValueFactory>
+                                  <cellFactory>
+                                      <TextFieldTableCell fx:factory="forTableColumn" />
+                                  </cellFactory>
+                              </TableColumn>
                               <TableColumn prefWidth="75.0" text="Photo" />
-                              <TableColumn prefWidth="75.0" text="Date and Time" />
+                              <TableColumn prefWidth="75.0" text="Date and time" >
+                                  <cellValueFactory>
+                                      <PropertyValueFactory property="dateTime" />
+                                  </cellValueFactory>
+                                  <cellFactory>
+                                      <TextFieldTableCell fx:factory="forTableColumn" />
+                                  </cellFactory>
+                              </TableColumn>
                               <TableColumn prefWidth="75.0" text="Is Public" />
                           </columns>
                         </TableView>
