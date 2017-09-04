@@ -43,8 +43,8 @@ object AuthenticationService {
       val response = Http(urlString).postData(params)
         .header("Content-Type", "application/x-www-form-urlencoded")
         .option(HttpOptions.readTimeout(10000)).asString
-      if (response.code != 200)
-        throw new LoginFailedException("Bad email or password.")
+//      if (response.code != 200)
+//        throw new LoginFailedException("Bad email or password.")
       token = response.header("Authorization") match {
         case Some(s) => Option(s.replace("Bearer ", ""))
       }
@@ -54,8 +54,9 @@ object AuthenticationService {
 //      }
       url = Option(address)
     } catch {
-      case e @ (_: MalformedURLException | _: IllegalArgumentException) =>
-        throw new LoginFailedException("Bad address.")
+      case e @ (_: Exception) =>
+//      case e @ (_: MalformedURLException | _: IllegalArgumentException) =>
+//        throw new LoginFailedException("Bad address.")
     }
   }
 

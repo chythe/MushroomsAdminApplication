@@ -30,20 +30,14 @@ import model._
   */
 @sfxml
 class DashboardController (
-                            private val borderPane: BorderPane,
-                            private val dashboardMenuBar: MenuBar,
-                            private val exitMenuItem: MenuItem,
-                            private val logoutMenuItem: MenuItem,
-                            private val usersTable: TableView[User],
-                            private val tripsTable: TableView[Trip],
-                            private val discoveriesTable: TableView[Discovery],
-                            private val helpButton: Button
+                            @FXML private val borderPane: BorderPane,
+                            @FXML private val dashboardMenuBar: MenuBar,
+                            @FXML private val exitMenuItem: MenuItem,
+                            @FXML private val logoutMenuItem: MenuItem,
+                            @FXML private val helpButton: Button
                          )
   {
 
-//    loadUsers();
-//    loadTrips();
-//    loadDiscoveries();
 
     /**
       *
@@ -81,29 +75,4 @@ class DashboardController (
       }
     }
 
-    def loadUsers() = {
-      val users = UserService.getAll(AuthenticationService.token.get)
-      val usersList: ObservableList[User] = FXCollections.observableArrayList();
-      users.get.foreach(u => usersList.add(u))
-      usersTable.setItems(usersList);
-    }
-
-    def loadTrips() = {
-      val trips = TripService.getAll(AuthenticationService.token.get)
-      val tripsList: ObservableList[Trip] = FXCollections.observableArrayList();
-      trips.get.foreach(u => tripsList.add(u))
-      tripsTable.setItems(tripsList);
-    }
-
-    def loadDiscoveries() = {
-      val discoveries = DiscoveryService.getAll(AuthenticationService.token.get)
-      val discoveriesList: ObservableList[Discovery] = FXCollections.observableArrayList();
-      discoveries.get.foreach(u => discoveriesList.add(u))
-      discoveriesTable.setItems(discoveriesList);
-    }
-
-    def updateUser(event: CellEditEvent[User, String]) = {
-      // TODO pobrac zedytowanego usera
-      UserService.update(AuthenticationService.token.get, event.getRowValue())
-    }
 }

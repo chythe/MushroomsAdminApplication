@@ -47,7 +47,7 @@ class LoginController(
     stage.hide() //optional
     stage.setScene(dashboardScene)
     stage.show()
-    stage.setFullScreen(true)
+//    stage.setFullScreen(true)
   }
   /**
     *
@@ -56,7 +56,7 @@ class LoginController(
   def loginButtonOnAction(event: ActionEvent) = {
     val stage: Stage = event.getTarget().asInstanceOf[jfxsc.Node].getScene().getWindow().asInstanceOf[jfxst.Stage]
     try {
-      AuthenticationService.login(addressTextField.getText(), emailTextField.getText(), passwordPasswordField.getText())
+//      AuthenticationService.login(addressTextField.getText(), emailTextField.getText(), passwordPasswordField.getText())
       changeScreen(event)
     } catch {
       case e: LoginFailedException => new Alert(AlertType.Error) {

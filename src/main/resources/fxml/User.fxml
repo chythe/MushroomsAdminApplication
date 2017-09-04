@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.cell.*?>
+
+<Tab text="Users" fx:id="userTab" fx:controller="controllers.UserController" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <content>
+        <VBox prefHeight="200.0" prefWidth="100.0">
+            <children>
+                <TableView fx:id="usersTable" prefHeight="200.0" prefWidth="200.0" editable="true">
+                    <columns>
+
+                        <TableColumn prefWidth="75.0" text="User ID" >
+                            <cellValueFactory>
+                                <PropertyValueFactory property="id"/>
+                            </cellValueFactory>
+                        </TableColumn>
+
+                        <TableColumn prefWidth="75.0" text="Username" onEditCommit="#updateUser">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="username" />
+                            </cellValueFactory>
+                            <cellFactory>
+                                <TextFieldTableCell fx:factory="forTableColumn" />
+                            </cellFactory>
+                        </TableColumn>
+
+                        <TableColumn prefWidth="75.0" text="Email" >
+                            <cellValueFactory>
+                                <PropertyValueFactory property="email" />
+                            </cellValueFactory>
+                            <cellFactory>
+                                <TextFieldTableCell fx:factory="forTableColumn" />
+                            </cellFactory>
+                        </TableColumn>
+                        <TableColumn prefWidth="75.0" text="Password" >
+                            <cellValueFactory>
+                                <PropertyValueFactory property="password" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn prefWidth="75.0" text="Role" >
+                            <cellValueFactory>
+                                <PropertyValueFactory property="role" />
+                            </cellValueFactory>
+                            <cellFactory>
+                                <TextFieldTableCell fx:factory="forTableColumn" />
+                            </cellFactory>
+                        </TableColumn>
+                        <TableColumn prefWidth="75.0" text="First Name" onEditCommit="#updateUser">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="firstName" />
+                            </cellValueFactory>
+                            <cellFactory>
+                                <TextFieldTableCell fx:factory="forTableColumn" />
+                            </cellFactory>
+                        </TableColumn>
+                        <TableColumn prefWidth="75.0" text="Last Name" >
+                            <cellValueFactory>
+                                <PropertyValueFactory property="lastName" />
+                            </cellValueFactory>
+                            <cellFactory>
+                                <TextFieldTableCell fx:factory="forTableColumn" />
+                            </cellFactory>
+                        </TableColumn>
+                        <TableColumn prefWidth="75.0" text="Birth Date" >
+                            <cellValueFactory>
+                                <PropertyValueFactory property="birthDate" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn prefWidth="75.0" text="Country" >
+                            <cellValueFactory>
+                                <PropertyValueFactory property="country" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn prefWidth="75.0" text="City" >
+                            <cellValueFactory>
+                                <PropertyValueFactory property="city" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn prefWidth="75.0" text="Gender" >
+                            <cellValueFactory>
+                                <PropertyValueFactory property="gender" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn prefWidth="75.0" text="Level" >
+                            <cellValueFactory>
+                                <PropertyValueFactory property="level" />
+                            </cellValueFactory>
+                            <cellFactory>
+                                <TextFieldTableCell fx:factory="forTableColumn" />
+                            </cellFactory>
+                        </TableColumn>
+                        <TableColumn prefWidth="75.0" text="Photo" />
+                    </columns>
+                </TableView>
+            </children>
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+        </VBox>
+    </content>
+</Tab>
