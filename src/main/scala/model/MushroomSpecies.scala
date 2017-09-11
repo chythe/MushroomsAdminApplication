@@ -3,10 +3,10 @@ package model
 /**
   * Created by Mateusz on 06.05.2017.
   */
-class MushroomSpecies(
+case class MushroomSpecies(
                        id: Long,
-                       mushGenusId: Long,
+                       genus: MushroomGenus,
                        name: String,
-                       examplePhoto: Any
+                       examplePhoto: String
                      ) {
 }

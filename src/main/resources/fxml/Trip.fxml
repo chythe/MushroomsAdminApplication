@@ -19,7 +19,7 @@
                                 <PropertyValueFactory property="id" />
                             </cellValueFactory>
                         </TableColumn>
-                        <TableColumn prefWidth="75.0" text="Date/Time" >
+                        <TableColumn prefWidth="75.0" text="Date/Time" onEditCommit="#updateDateTime">
                             <cellValueFactory>
                                 <PropertyValueFactory property="dateTime" />
                             </cellValueFactory>
@@ -27,9 +27,33 @@
                                 <TextFieldTableCell fx:factory="forTableColumn" />
                             </cellFactory>
                         </TableColumn>
-                        <TableColumn prefWidth="75.0" text="Place" >
+                        <TableColumn prefWidth="75.0" text="Place" onEditCommit="#updatePlace">
                             <cellValueFactory>
                                 <PropertyValueFactory property="place" />
+                            </cellValueFactory>
+                            <cellFactory>
+                                <TextFieldTableCell fx:factory="forTableColumn" />
+                            </cellFactory>
+                        </TableColumn>
+                        <TableColumn prefWidth="75.0" text="CoordinateX" onEditCommit="#updateCoordinateX">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="coordinateX" />
+                            </cellValueFactory>
+                            <cellFactory>
+                                <TextFieldTableCell fx:factory="forTableColumn" />
+                            </cellFactory>
+                        </TableColumn>
+                        <TableColumn prefWidth="75.0" text="CoordinateY" onEditCommit="#updateCoordinateY">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="coordinateY" />
+                            </cellValueFactory>
+                            <cellFactory>
+                                <TextFieldTableCell fx:factory="forTableColumn" />
+                            </cellFactory>
+                        </TableColumn>
+                        <TableColumn prefWidth="75.0" text="Radius" onEditCommit="#updateRadius">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="radius" />
                             </cellValueFactory>
                             <cellFactory>
                                 <TextFieldTableCell fx:factory="forTableColumn" />

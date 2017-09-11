@@ -34,6 +34,8 @@ class LoginController(
     */
 //  val stage: Stage = gridPane.getScene().getWindow().asInstanceOf[jfxst.Stage]
   addressTextField.setText("http://localhost:8080");
+  emailTextField.setText("admin@gmail.com");
+  passwordPasswordField.setText("admin123");
 
   /**
     *
@@ -56,7 +58,7 @@ class LoginController(
   def loginButtonOnAction(event: ActionEvent) = {
     val stage: Stage = event.getTarget().asInstanceOf[jfxsc.Node].getScene().getWindow().asInstanceOf[jfxst.Stage]
     try {
-//      AuthenticationService.login(addressTextField.getText(), emailTextField.getText(), passwordPasswordField.getText())
+      AuthenticationService.login(addressTextField.getText(), emailTextField.getText(), passwordPasswordField.getText())
       changeScreen(event)
     } catch {
       case e: LoginFailedException => new Alert(AlertType.Error) {

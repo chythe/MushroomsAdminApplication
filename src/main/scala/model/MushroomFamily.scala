@@ -5,7 +5,7 @@ package model
   */
 class MushroomFamily(
                       id: Long,
-                      mushOrderId: Long,
+                      order: MushroomOrder,
                       name: String
                     ) {
 }

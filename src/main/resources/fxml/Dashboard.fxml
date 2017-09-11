@@ -35,7 +35,7 @@
     <center>
         <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
             <tabs>
-                <fx:include fx:id="userTab" source="User.fxml" />
+                <fx:include fx:id="userTab" source="User.fxml"/>
                 <fx:include fx:id="tripTab" source="Trip.fxml"/>
                 <fx:include fx:id="discoveryTab" source="Discovery.fxml"/>
                 <fx:include fx:id="friendshipTab" source="Friendship.fxml"/>

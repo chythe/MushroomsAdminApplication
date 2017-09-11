@@ -15,8 +15,18 @@
                             <cellValueFactory>
                                 <PropertyValueFactory property="id" />
                             </cellValueFactory>
+                            <cellFactory>
+                                <TextFieldTableCell fx:factory="forTableColumn" />
+                            </cellFactory>
                         </TableColumn>
-                        <TableColumn prefWidth="75.0" text="Trip ID" />
+                        <TableColumn prefWidth="75.0" text="Trip ID" >
+                            <cellValueFactory>
+                                <PropertyValueFactory property="tripId" />
+                            </cellValueFactory>
+                            <cellFactory>
+                                <TextFieldTableCell fx:factory="forTableColumn" />
+                            </cellFactory>
+                        </TableColumn>
                         <TableColumn prefWidth="75.0" text="Mushroom Species ID" />
                         <TableColumn prefWidth="75.0" text="User ID" />
                         <TableColumn prefWidth="75.0" text="Coordinate X">

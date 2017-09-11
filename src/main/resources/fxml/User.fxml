@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.cell.*?>
-
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.VBox?>
+<?import java.lang.String?>
 <Tab text="Users" fx:id="userTab" fx:controller="controllers.UserController" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
     <content>
         <VBox prefHeight="200.0" prefWidth="100.0">
@@ -18,7 +19,7 @@
                             </cellValueFactory>
                         </TableColumn>
 
-                        <TableColumn prefWidth="75.0" text="Username" onEditCommit="#updateUser">
+                        <TableColumn prefWidth="75.0" text="Username" onEditCommit="#updateUsername">
                             <cellValueFactory>
                                 <PropertyValueFactory property="username" />
                             </cellValueFactory>
@@ -27,7 +28,7 @@
                             </cellFactory>
                         </TableColumn>
 
-                        <TableColumn prefWidth="75.0" text="Email" >
+                        <TableColumn prefWidth="75.0" text="Email" onEditCommit="#updateEmail">
                             <cellValueFactory>
                                 <PropertyValueFactory property="email" />
                             </cellValueFactory>
@@ -35,12 +36,7 @@
                                 <TextFieldTableCell fx:factory="forTableColumn" />
                             </cellFactory>
                         </TableColumn>
-                        <TableColumn prefWidth="75.0" text="Password" >
-                            <cellValueFactory>
-                                <PropertyValueFactory property="password" />
-                            </cellValueFactory>
-                        </TableColumn>
-                        <TableColumn prefWidth="75.0" text="Role" >
+                        <TableColumn prefWidth="75.0" text="Role" onEditCommit="#updateRole">
                             <cellValueFactory>
                                 <PropertyValueFactory property="role" />
                             </cellValueFactory>
@@ -48,7 +44,7 @@
                                 <TextFieldTableCell fx:factory="forTableColumn" />
                             </cellFactory>
                         </TableColumn>
-                        <TableColumn prefWidth="75.0" text="First Name" onEditCommit="#updateUser">
+                        <TableColumn prefWidth="75.0" text="First Name" onEditCommit="#updateFirstName">
                             <cellValueFactory>
                                 <PropertyValueFactory property="firstName" />
                             </cellValueFactory>
@@ -56,7 +52,7 @@
                                 <TextFieldTableCell fx:factory="forTableColumn" />
                             </cellFactory>
                         </TableColumn>
-                        <TableColumn prefWidth="75.0" text="Last Name" >
+                        <TableColumn prefWidth="75.0" text="Last Name" onEditCommit="#updateLastName">
                             <cellValueFactory>
                                 <PropertyValueFactory property="lastName" />
                             </cellValueFactory>
@@ -64,27 +60,36 @@
                                 <TextFieldTableCell fx:factory="forTableColumn" />
                             </cellFactory>
                         </TableColumn>
-                        <TableColumn prefWidth="75.0" text="Birth Date" >
+                        <TableColumn prefWidth="75.0" text="Birth Date" onEditCommit="#updateBirthDate">
                             <cellValueFactory>
                                 <PropertyValueFactory property="birthDate" />
                             </cellValueFactory>
+                            <cellFactory>
+                                <TextFieldTableCell fx:factory="forTableColumn" />
+                            </cellFactory>
                         </TableColumn>
-                        <TableColumn prefWidth="75.0" text="Country" >
+                        <TableColumn prefWidth="75.0" text="Country" onEditCommit="#updateCountry">
                             <cellValueFactory>
                                 <PropertyValueFactory property="country" />
                             </cellValueFactory>
+                            <cellFactory>
+                                <TextFieldTableCell fx:factory="forTableColumn" />
+                            </cellFactory>
                         </TableColumn>
-                        <TableColumn prefWidth="75.0" text="City" >
+                        <TableColumn prefWidth="75.0" text="City" onEditCommit="#updateCity">
                             <cellValueFactory>
                                 <PropertyValueFactory property="city" />
                             </cellValueFactory>
+                            <cellFactory>
+                                <TextFieldTableCell fx:factory="forTableColumn" />
+                            </cellFactory>
                         </TableColumn>
-                        <TableColumn prefWidth="75.0" text="Gender" >
+                        <TableColumn prefWidth="75.0" text="Gender" fx:id="userGender" onEditCommit="#updateGender">
                             <cellValueFactory>
                                 <PropertyValueFactory property="gender" />
                             </cellValueFactory>
                         </TableColumn>
-                        <TableColumn prefWidth="75.0" text="Level" >
+                        <TableColumn prefWidth="75.0" text="Level" onEditCommit="#updateLevel">
                             <cellValueFactory>
                                 <PropertyValueFactory property="level" />
                             </cellValueFactory>

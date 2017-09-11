@@ -2,7 +2,7 @@ package model
 
 class MushroomGenus(
                      id: Long,
-                     mushFamilyId: Long,
+                     family: MushroomFamily,
                      name: String
                    ) {
 }
