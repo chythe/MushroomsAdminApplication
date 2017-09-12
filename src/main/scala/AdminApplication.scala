@@ -2,7 +2,7 @@ import java.io.File
 import javafx.event.EventHandler
 import javafx.stage.WindowEvent
 
-import services.AuthenticationService
+import services.{AuthenticationService, PdfService}
 
 import scalafx.application.{JFXApp, Platform}
 import scalafx.scene.Scene

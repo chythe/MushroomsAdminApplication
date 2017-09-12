@@ -11,10 +11,11 @@ import javax.accessibility.AccessibleRole
 
 import enum.Gender
 import model.User
-import services.{AuthenticationService, UserService}
+import services.{AuthenticationService, PdfService, UserService}
 
+import scala.xml.{Elem, XML}
 import scalafx.event
-import scalafx.scene.control.TableView
+import scalafx.scene.control.{Tab, TableView}
 import scalafxml.core.macros.sfxml
 
 /**
@@ -22,9 +23,13 @@ import scalafxml.core.macros.sfxml
   */
 
 @sfxml
-class UserController(@FXML private val usersTable: TableView[User]) {
+class UserController(
+                      @FXML private val usersTable: TableView[User],
+                      @FXML private val userTab: Tab) {
 
   loadUsers();
+  exportToPdf();
+
 
   def loadUsers() = {
           val users = UserService.getAll(AuthenticationService.token.get)
@@ -93,4 +98,46 @@ class UserController(@FXML private val usersTable: TableView[User]) {
     UserService.update(AuthenticationService.token.get, user);
   }
 
+  def toRow(u: User): String = {
+    return "<tr>" +
+      "<td>" + u.id + "</td>" +
+      "<td>" + u.username + "</td>" +
+      "<td>" + u.email + "</td>" +
+      "<td>" + u.role + "</td>" +
+      "<td>" + u.firstName + "</td>" +
+      "<td>" + u.lastName + "</td>" +
+      "<td>" + u.birthDate + "</td>" +
+      "<td>" + u.country + "</td>" +
+      "<td>" + u.city + "</td>" +
+      "<td>" + u.gender + "</td>" +
+      "<td>" + u.level + "</td>" +
+      "</tr>"
+  }
+
+  def toHtmlRows(users: ObservableList[User]) : String = {
+    var content = "";
+    users.forEach(u => content += toRow(u))
+    return mainRow() + content;
+  }
+
+  def mainRow() : String = {
+    return "<thead><tr>" +
+      "<td>ID</td>" +
+      "<td>Username</td>" +
+      "<td>Email</td>" +
+      "<td>Role</td>" +
+      "<td>First name</td>" +
+      "<td>Last name</td>" +
+      "<td>Birth date</td>" +
+      "<td>Country</td>" +
+      "<td>City</td>" +
+      "<td>Gender</td>" +
+      "<td>Level</td>" +
+    "</tr></thead><tbody>"
+  }
+
+  def exportToPdf() = {
+    val tableContent = PdfService.createTableContent(userTab.text.value, toHtmlRows(usersTable.getItems))
+    PdfService.exportToPdf(XML.loadString(tableContent));
+  }
 }

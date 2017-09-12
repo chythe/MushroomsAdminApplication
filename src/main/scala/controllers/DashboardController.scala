@@ -32,12 +32,12 @@ import model._
 class DashboardController (
                             @FXML private val borderPane: BorderPane,
                             @FXML private val dashboardMenuBar: MenuBar,
+                            @FXML private val exportMenuItem: MenuItem,
                             @FXML private val exitMenuItem: MenuItem,
                             @FXML private val logoutMenuItem: MenuItem,
                             @FXML private val helpButton: Button
                          )
   {
-
 
     /**
       *

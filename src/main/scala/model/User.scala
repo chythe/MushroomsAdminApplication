@@ -2,8 +2,10 @@ package model
 
 
 import java.time.LocalDateTime
+import javafx.collections.ObservableList
 
 import scala.beans.BeanProperty
+import scala.xml.{Elem, XML}
 
 /**
   * Created by Mateusz on 06.05.2017.
@@ -22,6 +24,7 @@ case class User(
                  @BeanProperty var gender: String,
                  @BeanProperty var level: String
                ) {
+
 
 }
 

@@ -23,6 +23,7 @@ libraryDependencies ++= {
 //    "io.spray" %%  "spray-json" % sprayVersion,
     "org.scalafx" %% "scalafxml-core-sfx8" % scalafxmlVersion,
     "org.scalafx" %% "scalafx" % scalafxVersion,
-    "com.google.code.gson" % "gson" % gsonVersion
+    "com.google.code.gson" % "gson" % gsonVersion,
+    "io.github.cloudify" %% "spdf" % "1.4.0"
   )
 }
