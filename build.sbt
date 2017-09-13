@@ -4,7 +4,19 @@ version := "1.0"
 
 scalaVersion := "2.12.2"
 
+// general package information (can be scoped to Windows)
+maintainer := "Mateusz Chudy <matechu268@student.polsl.pl>"
+packageSummary := "test-windows"
+packageDescription := """Test Windows MSI."""
+
+// wix build information
+wixProductId := "ce07be71-510d-414a-92d4-dff47631848a"
+wixProductUpgradeId := "4552fb0e-e257-4dbd-9ecb-dba9dbacf424"
+
 addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.0" cross CrossVersion.full)
+
+enablePlugins(JavaAppPackaging)
+enablePlugins(WindowsPlugin)
 
 libraryDependencies ++= {
   val akkaVersion = "2.5.1"
