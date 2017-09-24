@@ -27,9 +27,24 @@
                                 <TextFieldTableCell fx:factory="forTableColumn" />
                             </cellFactory>
                         </TableColumn>
-                        <TableColumn prefWidth="75.0" text="Mushroom Species ID" />
-                        <TableColumn prefWidth="75.0" text="User ID" />
-                        <TableColumn prefWidth="75.0" text="Coordinate X">
+                        <TableColumn prefWidth="75.0" text="Mushroom Species ID" >
+                            <cellValueFactory>
+                                <PropertyValueFactory property="mushroomSpeciesId" />
+                            </cellValueFactory>
+                            <cellFactory>
+                                <TextFieldTableCell fx:factory="forTableColumn" />
+                            </cellFactory>
+                        </TableColumn>
+                        <TableColumn prefWidth="75.0" text="User ID" >
+                            <cellValueFactory>
+                                <PropertyValueFactory property="mushroomerId" />
+                            </cellValueFactory>
+                            <cellFactory>
+                                <TextFieldTableCell fx:factory="forTableColumn" />
+                            </cellFactory>
+                        </TableColumn>
+
+                        <TableColumn prefWidth="75.0" text="Coordinate X" onEditCommit="#updateCoordinateX">
                             <cellValueFactory>
                                 <PropertyValueFactory property="coordinateX" />
                             </cellValueFactory>
@@ -37,7 +52,7 @@
                                 <TextFieldTableCell fx:factory="forTableColumn" />
                             </cellFactory>
                         </TableColumn>
-                        <TableColumn prefWidth="75.0" text="Coordinate Y" >
+                        <TableColumn prefWidth="75.0" text="Coordinate Y" onEditCommit="#updateCoordinateY">
                             <cellValueFactory>
                                 <PropertyValueFactory property="coordinateY" />
                             </cellValueFactory>
@@ -46,7 +61,7 @@
                             </cellFactory>
                         </TableColumn>
                         <TableColumn prefWidth="75.0" text="Photo" />
-                        <TableColumn prefWidth="75.0" text="Date and time" >
+                        <TableColumn prefWidth="75.0" text="Date and time" onEditCommit="#updateDateTime">
                             <cellValueFactory>
                                 <PropertyValueFactory property="dateTime" />
                             </cellValueFactory>

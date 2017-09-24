@@ -22,7 +22,8 @@ case class User(
                  @BeanProperty var country: String,
                  @BeanProperty var city: String,
                  @BeanProperty var gender: String,
-                 @BeanProperty var level: String
+                 @BeanProperty var level: String,
+               @BeanProperty var photo: String
                ) {
 
 

@@ -1,10 +1,12 @@
 package model
 
+import scala.beans.BeanProperty
+
 /**
   * Created by Mateusz on 06.05.2017.
   */
-class MushroomClass(
-                     id: Long,
-                     name: String
+case class MushroomClass(
+                     @BeanProperty val id: Long,
+                     @BeanProperty var name: String
                    ) {
 }

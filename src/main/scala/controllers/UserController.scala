@@ -4,19 +4,28 @@ import java.time.{LocalDate, LocalDateTime}
 import java.time.format.DateTimeFormatter
 import java.util.stream.Collectors
 import javafx.collections.{FXCollections, ObservableList}
+import javafx.event.EventHandler
 import javafx.fxml.FXML
 import javafx.scene.control.TableColumn.CellEditEvent
 import javafx.scene.control.cell.{CheckBoxTableCell, PropertyValueFactory}
+import javafx.util.Callback
 import javax.accessibility.AccessibleRole
 
+import components.{ControlFactory, ServiceMapper}
 import enum.Gender
 import model.User
+import net.liftweb.json.DefaultFormats
+import pdf.PdfBuilder
 import services.{AuthenticationService, PdfService, UserService}
 
+import scala.compat.java8.JFunction
 import scala.xml.{Elem, XML}
+import scalafx.beans.binding.Bindings
 import scalafx.event
-import scalafx.scene.control.{Tab, TableView}
+import scalafx.event.ActionEvent
+import scalafx.scene.control._
 import scalafxml.core.macros.sfxml
+import scalaj.http.{Http, HttpOptions}
 
 /**
   * Created by pawel_zaqkxkn on 04.09.2017.
@@ -29,7 +38,6 @@ class UserController(
 
   loadUsers();
   exportToPdf();
-
 
   def loadUsers() = {
           val users = UserService.getAll(AuthenticationService.token.get)
@@ -114,30 +122,15 @@ class UserController(
       "</tr>"
   }
 
-  def toHtmlRows(users: ObservableList[User]) : String = {
-    var content = "";
-    users.forEach(u => content += toRow(u))
-    return mainRow() + content;
-  }
-
-  def mainRow() : String = {
-    return "<thead><tr>" +
-      "<td>ID</td>" +
-      "<td>Username</td>" +
-      "<td>Email</td>" +
-      "<td>Role</td>" +
-      "<td>First name</td>" +
-      "<td>Last name</td>" +
-      "<td>Birth date</td>" +
-      "<td>Country</td>" +
-      "<td>City</td>" +
-      "<td>Gender</td>" +
-      "<td>Level</td>" +
-    "</tr></thead><tbody>"
-  }
-
   def exportToPdf() = {
-    val tableContent = PdfService.createTableContent(userTab.text.value, toHtmlRows(usersTable.getItems))
-    PdfService.exportToPdf(XML.loadString(tableContent));
+    val pdf = new PdfBuilder()
+        .title("Users", LocalDateTime.now())
+        .openTable()
+        .mainRow("ID", "Username", "Email", "Role", "First name", "Last name", "Birth date", "Country", "City", "Gender", "Level")
+        .rows(usersTable.getItems(), toRow)
+        .closeTable()
+        .build();
+
+    PdfService.exportToPdf(".\\users report.pdf", pdf);
   }
 }

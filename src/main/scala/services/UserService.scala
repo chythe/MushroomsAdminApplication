@@ -56,4 +56,25 @@ object UserService {
     implicit val formats = DefaultFormats
     return Option(parse(response.body).extract[Array[User]])
   }
+
+  def delete(token: String, user: User) = {
+    val urlString = "http://localhost:8080/api/users"
+
+    implicit val formats = DefaultFormats
+
+    try {
+      val response = Http(urlString + "/" + user.id)
+        .method("DELETE")
+        .header("Content-Type", "application/json")
+        .header("Authorization", "Bearer " + token)
+        .option(HttpOptions.readTimeout(10000)).asString
+      if (response.code != 200) {
+        LOGGER.warning("Error. Http status: " + response.code)
+        throw new RuntimeException("Error. Http status: " + response.code);
+      }
+      else {
+        LOGGER.fine("User updated: " + response.body);
+      }
+    }
+  }
 }

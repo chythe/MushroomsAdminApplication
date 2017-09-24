@@ -33,16 +33,21 @@
         </VBox>
     </top>
     <center>
-        <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
+        <TabPane fx:id="tabPane" prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
             <tabs>
-                <fx:include fx:id="userTab" source="User.fxml"/>
+                <fx:include fx:id="userTab"  source="User.fxml"/>
                 <fx:include fx:id="tripTab" source="Trip.fxml"/>
                 <fx:include fx:id="discoveryTab" source="Discovery.fxml"/>
-                <fx:include fx:id="friendshipTab" source="Friendship.fxml"/>
-                <fx:include fx:id="commentTab" source="Comment.fxml"/>
-                <fx:include fx:id="scoreTab" source="Score.fxml"/>
-                <fx:include fx:id="tagTab" source="Tag.fxml"/>
-                <fx:include fx:id="mushroomTypeTab" source="MushroomType.fxml"/>
+                <fx:include fx:id="mushroomSpeciesTab" source="MushroomSpecies.fxml"/>
+                <fx:include fx:id="mushroomGenusTab" source="MushroomGenus.fxml"/>
+                <fx:include fx:id="mushroomFamilyTab" source="MushroomFamily.fxml"/>
+                <fx:include fx:id="mushroomOrderTab" source="MushroomOrder.fxml"/>
+                <fx:include fx:id="mushroomClassTab" source="MushroomClass.fxml"/>
+                <!--<fx:include fx:id="friendshipTab" source="Friendship.fxml"/>-->
+                <!--<fx:include fx:id="commentTab" source="Comment.fxml"/>-->
+                <!--<fx:include fx:id="scoreTab" source="Score.fxml"/>-->
+                <!--<fx:include fx:id="tagTab" source="Tag.fxml"/>-->
+                <!--<fx:include fx:id="mushroomTypeTab" source="MushroomType.fxml"/>-->
             </tabs>
         </TabPane>
     </center>

@@ -3,26 +3,27 @@ package services
 import java.util.logging.Logger
 
 import com.google.gson.Gson
-import model.{Discovery, Trip}
+import model.MushroomOrder
 import net.liftweb.json.{DefaultFormats, parse}
 
 import scalaj.http.{Http, HttpOptions}
 
 /**
-  * Created by pawel_zaqkxkn on 14.06.2017.
+  * Created by pawel_zaqkxkn on 24.09.2017.
   */
-object DiscoveryService {
+object MushroomOrderService {
 
-  private val LOGGER = Logger.getLogger("DiscoveryService");
 
-  def update(token: String, discovery: Discovery) = {
-    val urlString = "http://localhost:8080/api/discoveries"
+  private val LOGGER = Logger.getLogger("MushroomOrderService");
+
+  def update(token: String, mushroomOrder: MushroomOrder) = {
+    val urlString = "http://localhost:8080/api/mushroom-order"
 
     implicit val formats = DefaultFormats
 
     val gson = new Gson();
 
-    val json = gson.toJson(discovery);
+    val json = gson.toJson(mushroomOrder);
     try {
       val response = Http(urlString).put(json)
         .header("Content-Type", "application/json")
@@ -33,22 +34,23 @@ object DiscoveryService {
         throw new RuntimeException("Error. Http status: " + response.code + " " + response.body);
       }
       else {
-        LOGGER.fine("Discovery updated: " + response.body);
+        LOGGER.fine("Mushroom order updated: " + response.body);
       }
     }
   }
 
-  def getAll(token: String): Option[Array[Discovery]] = {
-    val urlString = "http://localhost:8080/api/discoveries"
+  def getAll(token: String): Option[Array[MushroomOrder]] = {
+    val urlString = "http://localhost:8080/api/mushroom-order"
 
     val response = Http.apply(urlString)
       .header("Content-Type", "application/x-www-form-urlencoded")
       .header("Authorization", token)
       .option(HttpOptions.readTimeout(10000)).asString
     if (response.code != 200)
-      throw new RuntimeException("Błąd połączenia z serwerem")
+      throw new RuntimeException("Error. Http status: " + response.code + " " + response.body);
 
     implicit val formats = DefaultFormats
-    return Option(parse(response.body).extract[Array[Discovery]])
+    return Option(parse(response.body).extract[Array[MushroomOrder]])
   }
 }
+

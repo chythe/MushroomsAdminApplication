@@ -3,26 +3,26 @@ package services
 import java.util.logging.Logger
 
 import com.google.gson.Gson
-import model.{Discovery, Trip}
+import model.MushroomFamily
 import net.liftweb.json.{DefaultFormats, parse}
 
 import scalaj.http.{Http, HttpOptions}
 
 /**
-  * Created by pawel_zaqkxkn on 14.06.2017.
+  * Created by pawel_zaqkxkn on 23.09.2017.
   */
-object DiscoveryService {
+object MushroomFamilyService {
 
-  private val LOGGER = Logger.getLogger("DiscoveryService");
+  private val LOGGER = Logger.getLogger("MushroomFamilyService");
 
-  def update(token: String, discovery: Discovery) = {
-    val urlString = "http://localhost:8080/api/discoveries"
+  def update(token: String, mushroomFamily: MushroomFamily) = {
+    val urlString = "http://localhost:8080/api/mushroom-family"
 
     implicit val formats = DefaultFormats
 
     val gson = new Gson();
 
-    val json = gson.toJson(discovery);
+    val json = gson.toJson(mushroomFamily);
     try {
       val response = Http(urlString).put(json)
         .header("Content-Type", "application/json")
@@ -33,22 +33,22 @@ object DiscoveryService {
         throw new RuntimeException("Error. Http status: " + response.code + " " + response.body);
       }
       else {
-        LOGGER.fine("Discovery updated: " + response.body);
+        LOGGER.fine("Mushroom family updated: " + response.body);
       }
     }
   }
 
-  def getAll(token: String): Option[Array[Discovery]] = {
-    val urlString = "http://localhost:8080/api/discoveries"
+  def getAll(token: String): Option[Array[MushroomFamily]] = {
+    val urlString = "http://localhost:8080/api/mushroom-family"
 
     val response = Http.apply(urlString)
       .header("Content-Type", "application/x-www-form-urlencoded")
       .header("Authorization", token)
       .option(HttpOptions.readTimeout(10000)).asString
     if (response.code != 200)
-      throw new RuntimeException("Błąd połączenia z serwerem")
+      throw new RuntimeException("Error. Http status: " + response.code + " " + response.body);
 
     implicit val formats = DefaultFormats
-    return Option(parse(response.body).extract[Array[Discovery]])
+    return Option(parse(response.body).extract[Array[MushroomFamily]])
   }
 }

@@ -1,12 +1,16 @@
 package model
 
+import net.liftweb.json.JString
+
+import scala.beans.BeanProperty
+
 /**
   * Created by Mateusz on 06.05.2017.
   */
 case class MushroomSpecies(
-                       id: Long,
-                       genus: MushroomGenus,
-                       name: String,
-                       examplePhoto: String
+                       @BeanProperty val id: Long,
+                       @BeanProperty var name: String,
+                       @BeanProperty var genusId: String
+//                       examplePhoto: Array[String]
                      ) {
 }
