@@ -2,6 +2,7 @@ package controllers
 
 import java.io.File
 import java.net.URL
+import java.time.LocalDateTime
 import java.util
 import java.util.ResourceBundle
 import javafx.collections.{FXCollections, ObservableList}
@@ -10,7 +11,8 @@ import javafx.fxml.{FXML, Initializable}
 import javafx.scene.control.TableColumn.CellEditEvent
 import javafx.scene.control.cell.PropertyValueFactory
 
-import services.{AuthenticationService, DiscoveryService, TripService, UserService}
+import components.TablesContainer
+import services._
 
 import scalafx.application.Platform
 import scalafx.event.ActionEvent
@@ -24,6 +26,9 @@ import scalafx.scene.control.Alert.AlertType
 import scalafx.scene.control._
 import scalafx.scene.layout.BorderPane
 import model._
+import pdf.PdfBuilder
+
+import scala.xml.Elem
 
 /**
   *
@@ -32,7 +37,8 @@ import model._
 class DashboardController (
                             @FXML private val borderPane: BorderPane,
                             @FXML private val dashboardMenuBar: MenuBar,
-                            @FXML private val exportMenuItem: MenuItem,
+                            @FXML private val exportToPdfMenuItem: MenuItem,
+                            @FXML private val exportUsers: MenuItem,
                             @FXML private val exitMenuItem: MenuItem,
                             @FXML private val logoutMenuItem: MenuItem,
                             @FXML private val helpButton: Button
@@ -74,6 +80,77 @@ class DashboardController (
         }
         case _ => alert.close()
       }
+    }
+
+    def exportToPdf[?](tableName: String,
+                       pdf: Elem,
+                       filePath: String) = {
+
+      PdfService.exportToPdf(filePath, pdf);
+
+      val stage: Stage = dashboardMenuBar.getScene().getWindow().asInstanceOf[jfxst.Stage]
+      val alert = new Alert(AlertType.Information) {
+        initOwner(stage)
+        title = "Export"
+        headerText = tableName + " was exported to the pdf"
+      }
+      alert.showAndWait();
+    }
+
+    def exportUsers(event: ActionEvent) = {
+
+      val pdf = new PdfBuilder()
+        .title("Users", LocalDateTime.now())
+        .openTable()
+        .mainRow("ID", "Username", "Email", "Role",
+          "First name", "Last name", "Birth date",
+          "Country", "City", "Gender", "Level")
+        .rows(TablesContainer.usersTable.get.getItems(), UserService.toRow)
+        .closeTable()
+        .build();
+
+
+      exportToPdf(
+        "Users",
+        pdf,
+        ".\\users report.pdf"
+      )
+    }
+
+    def exportTrips(event: ActionEvent) = {
+      val pdf = new PdfBuilder()
+        .title("Trips", LocalDateTime.now())
+        .openTable()
+        .mainRow("ID", "Place", "Date time", "Coordinate X", "Coordinate Y", "Radius")
+        .rows(TablesContainer.tripsTable.get.getItems(), TripService.toRow)
+        .closeTable()
+        .build();
+
+
+      exportToPdf(
+        "Trips",
+        pdf,
+        ".\\trips report.pdf"
+      );
+    }
+
+    def exportDiscoveries(event: ActionEvent) = {
+      val pdf = new PdfBuilder()
+        .title("Discoveries", LocalDateTime.now())
+        .openTable()
+        .mainRow("ID", "Trip ID", "Date time",
+          "Coordinate X", "Coordinate Y",
+          "Mushroomer ID", "Mushroom species ID")
+        .rows(TablesContainer.discoveriesTable.get.getItems(), DiscoveryService.toRow)
+        .closeTable()
+        .build();
+
+
+      exportToPdf(
+        "Discoveries",
+        pdf,
+        ".\\discoveries report.pdf"
+      );
     }
 
 }

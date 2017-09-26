@@ -5,6 +5,7 @@ import javafx.collections.{FXCollections, ObservableList}
 import javafx.fxml.FXML
 import javafx.scene.control.TableColumn.CellEditEvent
 
+import components.TablesContainer
 import model.{Discovery, Trip}
 import pdf.PdfBuilder
 import services.{AuthenticationService, DiscoveryService, PdfService}
@@ -20,7 +21,7 @@ class DiscoveryController(@FXML private val discoveriesTable: TableView[Discover
 
 
   loadDiscoveries();
-  exportToPdf();
+  TablesContainer.discoveriesTable = Option(discoveriesTable);
 
   def loadDiscoveries() = {
           val discoveries = DiscoveryService.getAll(AuthenticationService.token.get)
@@ -46,30 +47,6 @@ class DiscoveryController(@FXML private val discoveriesTable: TableView[Discover
     val discovery = event.getRowValue();
     discovery.dateTime = event.getNewValue();
     DiscoveryService.update(AuthenticationService.token.get, discovery);
-  }
-
-  def toRow(u: Discovery): String = {
-    return "<tr>" +
-      "<td>" + u.id + "</td>" +
-      "<td>" + u.tripId + "</td>" +
-      "<td>" + u.dateTime + "</td>" +
-      "<td>" + u.coordinateX + "</td>" +
-      "<td>" + u.coordinateY + "</td>" +
-      "<td>" + u.mushroomerId + "</td>" +
-      "<td>" + u.mushroomSpeciesId + "</td>" +
-      "</tr>"
-  }
-
-  def exportToPdf() = {
-    val pdf = new PdfBuilder()
-      .title("Users", LocalDateTime.now())
-      .openTable()
-      .mainRow("ID", "Trip ID", "Date time", "Coordinate X", "Coordinate Y", "Mushroomer ID", "Mushroom species ID")
-      .rows(discoveriesTable.getItems(), toRow)
-      .closeTable()
-      .build();
-
-    PdfService.exportToPdf(".\\discoveries report.pdf", pdf);
   }
 
 }

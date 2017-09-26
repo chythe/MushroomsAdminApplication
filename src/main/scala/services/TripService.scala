@@ -53,4 +53,15 @@ object TripService {
     implicit val formats = DefaultFormats
     return Option(parse(response.body).extract[Array[Trip]])
   }
+
+  def toRow(u: Trip): String = {
+    return "<tr>" +
+      "<td>" + u.id + "</td>" +
+      "<td>" + u.place + "</td>" +
+      "<td>" + u.dateTime + "</td>" +
+      "<td>" + u.coordinateX + "</td>" +
+      "<td>" + u.coordinateY + "</td>" +
+      "<td>" + u.radius + "</td>" +
+      "</tr>"
+  }
 }

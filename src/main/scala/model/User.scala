@@ -25,8 +25,6 @@ case class User(
                  @BeanProperty var level: String,
                @BeanProperty var photo: String
                ) {
-
-
 }
 
 

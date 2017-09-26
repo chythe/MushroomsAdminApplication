@@ -22,6 +22,15 @@
                     <menus>
                         <Menu mnemonicParsing="false" text="File">
                             <items>
+                                <Menu fx:id="exportToPdfMenuItem" mnemonicParsing="false" text="Export to pdf..." >
+                                    <items>
+                                        <MenuItem fx:id="exportUsers" mnemonicParsing="false" onAction="#exportUsers" text="Users" />
+                                        <MenuItem fx:id="exportTrips" mnemonicParsing="false" onAction="#exportTrips" text="Trips" />
+                                        <MenuItem fx:id="exportDiscoveries" mnemonicParsing="false" onAction="#exportDiscoveries" text="Discoveries" />
+                                    </items>
+                                </Menu>
+
+                                <SeparatorMenuItem mnemonicParsing="false" />
                                 <MenuItem fx:id="logoutMenuItem" mnemonicParsing="false" onAction="#logoutMenuItemOnAction" text="Logout" />
                                     <SeparatorMenuItem mnemonicParsing="false" />
                                 <MenuItem fx:id="exitMenuItem" mnemonicParsing="false" onAction="#exitMenuItemOnAction" text="Exit" />
