@@ -4,7 +4,7 @@ import java.time.{LocalDate, LocalDateTime}
 import java.time.format.DateTimeFormatter
 import java.util.stream.Collectors
 import javafx.collections.{FXCollections, ObservableList}
-import javafx.event.EventHandler
+import javafx.event.{ActionEvent, EventHandler}
 import javafx.fxml.FXML
 import javafx.scene.control.TableColumn.CellEditEvent
 import javafx.scene.control.cell.{CheckBoxTableCell, PropertyValueFactory}
@@ -22,7 +22,6 @@ import scala.compat.java8.JFunction
 import scala.xml.{Elem, XML}
 import scalafx.beans.binding.Bindings
 import scalafx.event
-import scalafx.event.ActionEvent
 import scalafx.scene.control._
 import scalafxml.core.macros.sfxml
 import scalaj.http.{Http, HttpOptions}
@@ -40,10 +39,21 @@ class UserController(
   exportToPdf();
 
   def loadUsers() = {
-          val users = UserService.getAll(AuthenticationService.token.get)
-          val usersList: ObservableList[User] = FXCollections.observableArrayList();
-          users.get.foreach(u => usersList.add(u))
-          usersTable.setItems(usersList);
+    usersTable.getSelectionModel().setSelectionMode(SelectionMode.Multiple);
+    val contextMenu = new ContextMenu()
+    val deleteAllSelectedItem = new MenuItem("Delete all selected rows")
+    deleteAllSelectedItem.setOnAction((event: ActionEvent) => {
+      usersTable.getItems().removeAll(usersTable.getSelectionModel().getSelectedItems())
+      usersTable.getSelectionModel().getSelectedItems().forEach(user => {
+        UserService.delete(AuthenticationService.token.get, user)
+      })
+    })
+    contextMenu.getItems().addAll(deleteAllSelectedItem)
+    usersTable.setContextMenu(contextMenu);
+    val users = UserService.getAll(AuthenticationService.token.get)
+    val usersList: ObservableList[User] = FXCollections.observableArrayList();
+    users.get.foreach(u => usersList.add(u))
+    usersTable.setItems(usersList);
   }
 
   def updateUsername(event: CellEditEvent[User, String]) = {
@@ -104,6 +114,10 @@ class UserController(
     val user = event.getRowValue();
     user.role = event.getNewValue();
     UserService.update(AuthenticationService.token.get, user);
+  }
+
+  def deleteRow() = {
+
   }
 
   def toRow(u: User): String = {
