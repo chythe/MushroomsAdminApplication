@@ -23,10 +23,8 @@ case class User(
                  @BeanProperty var city: String,
                  @BeanProperty var gender: String,
                  @BeanProperty var level: String,
-               @BeanProperty var photo: String
+                 @BeanProperty var photo: String
                ) {
-
-
 }
 
 

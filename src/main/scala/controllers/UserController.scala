@@ -48,24 +48,7 @@ class UserController(
     val contextMenu = new ContextMenu()
     val deleteAllSelectedItem = new MenuItem("Delete all selected rows")
     deleteAllSelectedItem.setOnAction((event: ActionEvent) => {
-//      val stage = event.getTarget().asInstanceOf[jfxsc.Node].getScene().getWindow().asInstanceOf[jfxst.Stage]
-//      try {
-        val userIdsList = new ArrayBuffer[Long]();
-        usersTable.getSelectionModel().getSelectedItems().forEach(user => {
-            userIdsList.append(user.id)
-        })
-        val userIdsArray = userIdsList.toArray[Long]
-        UserService.delete(
-          AuthenticationService.token.get,
-          new DeleteUsersCommand(userIdsArray))
-        usersTable.getItems().removeAll(usersTable.getSelectionModel().getSelectedItems())
-//      } catch {
-//        case e: Exception => new Alert(AlertType.Error) {
-////          initOwner(stage)
-//          title = "Error"
-//          headerText = "Delete failed."
-//        }.showAndWait()
-//      }
+      deleteUser();
     })
     contextMenu.getItems().addAll(deleteAllSelectedItem)
     usersTable.setContextMenu(contextMenu);
@@ -135,7 +118,28 @@ class UserController(
     UserService.update(AuthenticationService.token.get, user);
   }
 
-  def deleteRow() = {
+  def deleteUser() = {
+    //      val stage = event.getTarget().asInstanceOf[jfxsc.Node].getScene().getWindow().asInstanceOf[jfxst.Stage]
+    //      try {
+    val userIdsList = new ArrayBuffer[Long]();
+    usersTable.getSelectionModel().getSelectedItems().forEach(user => {
+      userIdsList.append(user.id)
+    })
+    val userIdsArray = userIdsList.toArray[Long]
+    UserService.delete(
+      AuthenticationService.token.get,
+      new DeleteUsersCommand(userIdsArray))
+    usersTable.getItems().removeAll(usersTable.getSelectionModel().getSelectedItems())
+    //      } catch {
+    //        case e: Exception => new Alert(AlertType.Error) {
+    ////          initOwner(stage)
+    //          title = "Error"
+    //          headerText = "Delete failed."
+    //        }.showAndWait()
+    //      }
+  }
+
+  def createUser() = {
 
   }
 
