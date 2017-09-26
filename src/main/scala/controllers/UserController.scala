@@ -15,7 +15,6 @@ import javax.accessibility.AccessibleRole
 
 import components.{TablesContainer}
 import commands.DeleteUsersCommand
-import components.{ControlFactory, ServiceMapper}
 import enum.Gender
 import exceptions.LoginFailedException
 import model.User
