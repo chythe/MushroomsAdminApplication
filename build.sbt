@@ -38,4 +38,5 @@ libraryDependencies ++= {
     "com.google.code.gson" % "gson" % gsonVersion,
     "io.github.cloudify" %% "spdf" % "1.4.0"
   )
+
 }

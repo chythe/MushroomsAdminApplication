@@ -51,4 +51,16 @@ object DiscoveryService {
     implicit val formats = DefaultFormats
     return Option(parse(response.body).extract[Array[Discovery]])
   }
+
+  def toRow(u: Discovery): String = {
+    return "<tr>" +
+      "<td>" + u.id + "</td>" +
+      "<td>" + u.tripId + "</td>" +
+      "<td>" + u.dateTime + "</td>" +
+      "<td>" + u.coordinateX + "</td>" +
+      "<td>" + u.coordinateY + "</td>" +
+      "<td>" + u.mushroomerId + "</td>" +
+      "<td>" + u.mushroomSpeciesId + "</td>" +
+      "</tr>"
+  }
 }

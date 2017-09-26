@@ -103,4 +103,20 @@ object UserService {
       }
     }
   }
+
+  def toRow(u: User): String = {
+    return "<tr>" +
+      "<td>" + u.id + "</td>" +
+      "<td>" + u.username + "</td>" +
+      "<td>" + u.email + "</td>" +
+      "<td>" + u.role + "</td>" +
+      "<td>" + u.firstName + "</td>" +
+      "<td>" + u.lastName + "</td>" +
+      "<td>" + u.birthDate + "</td>" +
+      "<td>" + u.country + "</td>" +
+      "<td>" + u.city + "</td>" +
+      "<td>" + u.gender + "</td>" +
+      "<td>" + u.level + "</td>" +
+      "</tr>"
+  }
 }

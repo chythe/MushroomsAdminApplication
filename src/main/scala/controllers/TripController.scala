@@ -4,12 +4,13 @@ import java.time.LocalDateTime
 import javafx.collections.{FXCollections, ObservableList}
 import javafx.fxml.FXML
 import javafx.scene.control.TableColumn.CellEditEvent
-import javafx.scene.control.TableView
 
+import components.TablesContainer
 import model.{Trip, User}
 import pdf.PdfBuilder
 import services.{AuthenticationService, PdfService, TripService, UserService}
 
+import scalafx.scene.control.TableView
 import scalafxml.core.macros.sfxml
 
 /**
@@ -20,7 +21,7 @@ import scalafxml.core.macros.sfxml
 class TripController(@FXML private val tripsTable: TableView[Trip]) {
 
   loadTrips();
-  exportToPdf();
+  TablesContainer.tripsTable = Option(tripsTable);
 
   def loadTrips() = {
           val trips = TripService.getAll(AuthenticationService.token.get)
@@ -59,26 +60,4 @@ class TripController(@FXML private val tripsTable: TableView[Trip]) {
     TripService.update(AuthenticationService.token.get, trip);
   }
 
-  def toRow(u: Trip): String = {
-    return "<tr>" +
-      "<td>" + u.id + "</td>" +
-      "<td>" + u.place + "</td>" +
-      "<td>" + u.dateTime + "</td>" +
-      "<td>" + u.coordinateX + "</td>" +
-      "<td>" + u.coordinateY + "</td>" +
-      "<td>" + u.radius + "</td>" +
-      "</tr>"
-  }
-
-  def exportToPdf() = {
-    val pdf = new PdfBuilder()
-      .title("Users", LocalDateTime.now())
-      .openTable()
-      .mainRow("ID", "Place", "Date time", "Coordinate X", "Coordinate Y", "Radius")
-      .rows(tripsTable.getItems(), toRow)
-      .closeTable()
-      .build();
-
-    PdfService.exportToPdf(".\\trips report.pdf", pdf);
-  }
 }

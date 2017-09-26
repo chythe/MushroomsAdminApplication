@@ -13,8 +13,8 @@ import javafx.scene.control.cell.{CheckBoxTableCell, PropertyValueFactory}
 import javafx.util.Callback
 import javax.accessibility.AccessibleRole
 
+import components.{TablesContainer}
 import commands.DeleteUsersCommand
-import components.{ControlFactory, ServiceMapper}
 import enum.Gender
 import exceptions.LoginFailedException
 import model.User
@@ -41,7 +41,7 @@ class UserController(
                       @FXML private val userTab: Tab) {
 
   loadUsers();
-  exportToPdf();
+  TablesContainer.usersTable = Option(usersTable);
 
   def loadUsers() = {
     usersTable.getSelectionModel().setSelectionMode(SelectionMode.Multiple);
@@ -143,31 +143,4 @@ class UserController(
 
   }
 
-  def toRow(u: User): String = {
-    return "<tr>" +
-      "<td>" + u.id + "</td>" +
-      "<td>" + u.username + "</td>" +
-      "<td>" + u.email + "</td>" +
-      "<td>" + u.role + "</td>" +
-      "<td>" + u.firstName + "</td>" +
-      "<td>" + u.lastName + "</td>" +
-      "<td>" + u.birthDate + "</td>" +
-      "<td>" + u.country + "</td>" +
-      "<td>" + u.city + "</td>" +
-      "<td>" + u.gender + "</td>" +
-      "<td>" + u.level + "</td>" +
-      "</tr>"
-  }
-
-  def exportToPdf() = {
-    val pdf = new PdfBuilder()
-        .title("Users", LocalDateTime.now())
-        .openTable()
-        .mainRow("ID", "Username", "Email", "Role", "First name", "Last name", "Birth date", "Country", "City", "Gender", "Level")
-        .rows(usersTable.getItems(), toRow)
-        .closeTable()
-        .build();
-
-    PdfService.exportToPdf(".\\users report.pdf", pdf);
-  }
 }
