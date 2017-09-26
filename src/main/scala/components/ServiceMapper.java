@@ -8,7 +8,7 @@ import services.UserService;
  */
 public class ServiceMapper {
 
-    public static void delete(final String token, final User t) {
-        UserService.delete(token, t);
-    }
+//    public static void delete(final String token, final User t) {
+//        UserService.delete(token, t);
+//    }
 }

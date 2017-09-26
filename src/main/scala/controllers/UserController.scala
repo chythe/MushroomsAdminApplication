@@ -1,7 +1,9 @@
 package controllers
-
+import collection.mutable._
+import javafx.{scene => jfxsc, stage => jfxst}
 import java.time.{LocalDate, LocalDateTime}
 import java.time.format.DateTimeFormatter
+import java.util
 import java.util.stream.Collectors
 import javafx.collections.{FXCollections, ObservableList}
 import javafx.event.{ActionEvent, EventHandler}
@@ -11,8 +13,10 @@ import javafx.scene.control.cell.{CheckBoxTableCell, PropertyValueFactory}
 import javafx.util.Callback
 import javax.accessibility.AccessibleRole
 
+import commands.DeleteUsersCommand
 import components.{ControlFactory, ServiceMapper}
 import enum.Gender
+import exceptions.LoginFailedException
 import model.User
 import net.liftweb.json.DefaultFormats
 import pdf.PdfBuilder
@@ -22,6 +26,7 @@ import scala.compat.java8.JFunction
 import scala.xml.{Elem, XML}
 import scalafx.beans.binding.Bindings
 import scalafx.event
+import scalafx.scene.control.Alert.AlertType
 import scalafx.scene.control._
 import scalafxml.core.macros.sfxml
 import scalaj.http.{Http, HttpOptions}
@@ -43,10 +48,24 @@ class UserController(
     val contextMenu = new ContextMenu()
     val deleteAllSelectedItem = new MenuItem("Delete all selected rows")
     deleteAllSelectedItem.setOnAction((event: ActionEvent) => {
-      usersTable.getItems().removeAll(usersTable.getSelectionModel().getSelectedItems())
-      usersTable.getSelectionModel().getSelectedItems().forEach(user => {
-        UserService.delete(AuthenticationService.token.get, user)
-      })
+//      val stage = event.getTarget().asInstanceOf[jfxsc.Node].getScene().getWindow().asInstanceOf[jfxst.Stage]
+//      try {
+        val userIdsList = new ArrayBuffer[Long]();
+        usersTable.getSelectionModel().getSelectedItems().forEach(user => {
+            userIdsList.append(user.id)
+        })
+        val userIdsArray = userIdsList.toArray[Long]
+        UserService.delete(
+          AuthenticationService.token.get,
+          new DeleteUsersCommand(userIdsArray))
+        usersTable.getItems().removeAll(usersTable.getSelectionModel().getSelectedItems())
+//      } catch {
+//        case e: Exception => new Alert(AlertType.Error) {
+////          initOwner(stage)
+//          title = "Error"
+//          headerText = "Delete failed."
+//        }.showAndWait()
+//      }
     })
     contextMenu.getItems().addAll(deleteAllSelectedItem)
     usersTable.setContextMenu(contextMenu);

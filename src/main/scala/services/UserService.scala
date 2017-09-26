@@ -1,9 +1,11 @@
 package services
 
 import java.net.MalformedURLException
+import java.util
 import java.util.logging.Logger
 
 import com.google.gson.Gson
+import commands.DeleteUsersCommand
 import exceptions.LoginFailedException
 import model.User
 import net.liftweb.json.{DefaultFormats, parse}
@@ -57,13 +59,18 @@ object UserService {
     return Option(parse(response.body).extract[Array[User]])
   }
 
-  def delete(token: String, user: User) = {
+  def delete(token: String, deleteUsersCommand: DeleteUsersCommand) = {
     val urlString = "http://localhost:8080/api/users"
 
     implicit val formats = DefaultFormats
 
+    val gson = new Gson();
+
+    val json = gson.toJson(deleteUsersCommand);
+
     try {
-      val response = Http(urlString + "/" + user.id)
+      val response = Http(urlString)
+        .postData(json)
         .method("DELETE")
         .header("Content-Type", "application/json")
         .header("Authorization", "Bearer " + token)
