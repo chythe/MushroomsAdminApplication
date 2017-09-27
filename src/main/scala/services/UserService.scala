@@ -1,16 +1,12 @@
 package services
 
-import java.net.MalformedURLException
-import java.util
 import java.util.logging.Logger
 
 import com.google.gson.Gson
-import commands.DeleteUsersCommand
-import exceptions.LoginFailedException
+import commands.{CreateUserCommand, DeleteUsersCommand}
 import model.User
 import net.liftweb.json.{DefaultFormats, parse}
 
-import scalafx.util.converter.FormatStringConverter
 import scalaj.http.{Http, HttpOptions}
 
 /**
@@ -81,14 +77,14 @@ object UserService {
     }
   }
 
-  def create(token: String, user: User) = {
+  def create(token: String, createUserCommand: CreateUserCommand) = {
     val urlString = "http://localhost:8080/api/users"
 
     implicit val formats = DefaultFormats
 
     val gson = new Gson();
 
-    val json = gson.toJson(user);
+    val json = gson.toJson(createUserCommand);
     try {
       val response = Http(urlString).postData(json)
         .header("Content-Type", "application/json")
