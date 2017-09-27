@@ -3,7 +3,6 @@ package services
 import java.util.logging.Logger
 
 import com.google.gson.Gson
-import commands.DeleteMushroomFamilyCommand
 import model.MushroomFamily
 import net.liftweb.json.{DefaultFormats, parse}
 
@@ -53,17 +52,13 @@ object MushroomFamilyService {
     return Option(parse(response.body).extract[Array[MushroomFamily]])
   }
 
-  def delete(token: String, deleteMushroomFamilyCommand: DeleteMushroomFamilyCommand) = {
-    val urlString = "http://localhost:8080/api/mushroom-family"
+  def delete(token: String, mushroomFamily: MushroomFamily) = {
+    val urlString = "http://localhost:8080/api/mushroom-family/" + mushroomFamily.id
 
     implicit val formats = DefaultFormats
 
-    val gson = new Gson();
-
-    val json = gson.toJson(deleteMushroomFamilyCommand);
-
     try {
-      val response = Http(urlString).postData(json).method("DELETE")
+      val response = Http(urlString).method("DELETE")
         .header("Content-Type", "application/json")
         .header("Authorization", "Bearer " + token)
         .option(HttpOptions.readTimeout(10000)).asString

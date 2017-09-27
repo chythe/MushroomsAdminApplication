@@ -5,7 +5,6 @@ import javafx.event.ActionEvent
 import javafx.fxml.FXML
 import javafx.scene.control.TableColumn.CellEditEvent
 
-import commands.DeleteDiscoveryCommand
 import components.TablesContainer
 import model.Discovery
 import services.{AuthenticationService, DiscoveryService}
@@ -62,9 +61,7 @@ class DiscoveryController(@FXML private val discoveriesTable: TableView[Discover
     //      val stage = event.getTarget().asInstanceOf[jfxsc.Node].getScene().getWindow().asInstanceOf[jfxst.Stage]
     //      try {
     discoveriesTable.getSelectionModel().getSelectedItems().forEach(discovery => {
-      DiscoveryService.delete(
-        AuthenticationService.token.get,
-        new DeleteDiscoveryCommand(discovery.id.toLong))
+      DiscoveryService.delete(AuthenticationService.token.get, discovery)
     })
     discoveriesTable.getItems().removeAll(discoveriesTable.getSelectionModel().getSelectedItems())
     //      } catch {

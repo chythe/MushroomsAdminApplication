@@ -3,7 +3,6 @@ package services
 import java.util.logging.Logger
 
 import com.google.gson.Gson
-import commands.DeleteTripCommand
 import model.Trip
 import net.liftweb.json.{DefaultFormats, parse}
 
@@ -54,17 +53,13 @@ object TripService {
     return Option(parse(response.body).extract[Array[Trip]])
   }
 
-  def delete(token: String, deleteTripCommand: DeleteTripCommand) = {
-    val urlString = "http://localhost:8080/api/trips"
+  def delete(token: String, trip: Trip) = {
+    val urlString = "http://localhost:8080/api/trips/" +  trip.id
 
     implicit val formats = DefaultFormats
 
-    val gson = new Gson();
-
-    val json = gson.toJson(deleteTripCommand);
-
     try {
-      val response = Http(urlString).postData(json).method("DELETE")
+      val response = Http(urlString).method("DELETE")
         .header("Content-Type", "application/json")
         .header("Authorization", "Bearer " + token)
         .option(HttpOptions.readTimeout(10000)).asString

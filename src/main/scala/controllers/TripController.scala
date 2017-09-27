@@ -5,7 +5,6 @@ import javafx.event.ActionEvent
 import javafx.fxml.FXML
 import javafx.scene.control.TableColumn.CellEditEvent
 
-import commands.DeleteTripCommand
 import components.TablesContainer
 import model.Trip
 import services.{AuthenticationService, TripService}
@@ -73,9 +72,7 @@ class TripController(@FXML private val tripsTable: TableView[Trip],
     //      val stage = event.getTarget().asInstanceOf[jfxsc.Node].getScene().getWindow().asInstanceOf[jfxst.Stage]
     //      try {
     tripsTable.getSelectionModel().getSelectedItems().forEach(trip => {
-      TripService.delete(
-        AuthenticationService.token.get,
-        new DeleteTripCommand(trip.id))
+      TripService.delete(AuthenticationService.token.get, trip)
     })
     tripsTable.getItems().removeAll(tripsTable.getSelectionModel().getSelectedItems())
     //      } catch {

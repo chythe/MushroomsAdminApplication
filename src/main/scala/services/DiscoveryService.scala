@@ -3,7 +3,6 @@ package services
 import java.util.logging.Logger
 
 import com.google.gson.Gson
-import commands.DeleteDiscoveryCommand
 import model.Discovery
 import net.liftweb.json.{DefaultFormats, parse}
 
@@ -53,17 +52,13 @@ object DiscoveryService {
     return Option(parse(response.body).extract[Array[Discovery]])
   }
 
-  def delete(token: String, deleteDiscoveryCommand: DeleteDiscoveryCommand) = {
-    val urlString = "http://localhost:8080/api/discoveries"
+  def delete(token: String, discovery: Discovery) = {
+    val urlString = "http://localhost:8080/api/discoveries/" + discovery.id
 
     implicit val formats = DefaultFormats
 
-    val gson = new Gson();
-
-    val json = gson.toJson(deleteDiscoveryCommand);
-
     try {
-      val response = Http(urlString).postData(json).method("DELETE")
+      val response = Http(urlString).method("DELETE")
         .header("Content-Type", "application/json")
         .header("Authorization", "Bearer " + token)
         .option(HttpOptions.readTimeout(10000)).asString

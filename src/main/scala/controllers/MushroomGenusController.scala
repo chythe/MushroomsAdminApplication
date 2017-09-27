@@ -5,7 +5,6 @@ import javafx.event.ActionEvent
 import javafx.fxml.FXML
 import javafx.scene.control.TableColumn.CellEditEvent
 
-import commands.DeleteMushroomGenusCommand
 import model.MushroomGenus
 import services.{AuthenticationService, MushroomGenusService}
 
@@ -53,9 +52,7 @@ class MushroomGenusController(@FXML private val mushroomGenusTable: TableView[Mu
     //      val stage = event.getTarget().asInstanceOf[jfxsc.Node].getScene().getWindow().asInstanceOf[jfxst.Stage]
     //      try {
     mushroomGenusTable.getSelectionModel().getSelectedItems().forEach(mushroomGenus => {
-      MushroomGenusService.delete(
-        AuthenticationService.token.get,
-        new DeleteMushroomGenusCommand(mushroomGenus.id))
+      MushroomGenusService.delete(AuthenticationService.token.get, mushroomGenus)
     })
     mushroomGenusTable.getItems().removeAll(mushroomGenusTable.getSelectionModel().getSelectedItems())
     //      } catch {
