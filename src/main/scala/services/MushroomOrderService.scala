@@ -3,6 +3,7 @@ package services
 import java.util.logging.Logger
 
 import com.google.gson.Gson
+import commands.DeleteMushroomOrderCommand
 import model.MushroomOrder
 import net.liftweb.json.{DefaultFormats, parse}
 
@@ -52,5 +53,52 @@ object MushroomOrderService {
     implicit val formats = DefaultFormats
     return Option(parse(response.body).extract[Array[MushroomOrder]])
   }
+
+  def delete(token: String, deleteMushroomOrderCommand: DeleteMushroomOrderCommand) = {
+    val urlString = "http://localhost:8080/api/mushroom-order"
+
+    implicit val formats = DefaultFormats
+
+    val gson = new Gson();
+
+    val json = gson.toJson(deleteMushroomOrderCommand);
+
+    try {
+      val response = Http(urlString).postData(json).method("DELETE")
+        .header("Content-Type", "application/json")
+        .header("Authorization", "Bearer " + token)
+        .option(HttpOptions.readTimeout(10000)).asString
+      if (response.code != 200) {
+        LOGGER.warning("Error. Http status: " + response.code)
+        throw new RuntimeException("Error. Http status: " + response.code);
+      }
+      else {
+        LOGGER.fine("User updated: " + response.body);
+      }
+    }
+  }
+
+  //  def create(token: String, createCommand: CreateCommand) = {
+  //    val urlString = "http://localhost:8080/api/mushroom-order"
+  //
+  //    implicit val formats = DefaultFormats
+  //
+  //    val gson = new Gson();
+  //
+  //    val json = gson.toJson(createCommand);
+  //    try {
+  //      val response = Http(urlString).postData(json)
+  //        .header("Content-Type", "application/json")
+  //        .header("Authorization", "Bearer " + token)
+  //        .option(HttpOptions.readTimeout(10000)).asString
+  //      if (response.code != 200) {
+  //        LOGGER.warning("Error. Http status: " + response.code)
+  //        throw new RuntimeException("Error. Http status: " + response.code);
+  //      }
+  //      else {
+  //        LOGGER.fine("User updated: " + response.body);
+  //      }
+  //    }
+  //  }
 }
 

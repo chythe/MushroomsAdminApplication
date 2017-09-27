@@ -3,7 +3,8 @@ package services
 import java.util.logging.Logger
 
 import com.google.gson.Gson
-import model.{MushroomGenus, MushroomSpecies}
+import commands.DeleteMushroomGenusCommand
+import model.MushroomGenus
 import net.liftweb.json.{DefaultFormats, parse}
 
 import scalaj.http.{Http, HttpOptions}
@@ -51,4 +52,51 @@ object MushroomGenusService {
     implicit val formats = DefaultFormats
     return Option(parse(response.body).extract[Array[MushroomGenus]])
   }
+
+  def delete(token: String, deleteMushroomGenusCommand: DeleteMushroomGenusCommand) = {
+    val urlString = "http://localhost:8080/api/mushroom-genus"
+
+    implicit val formats = DefaultFormats
+
+    val gson = new Gson();
+
+    val json = gson.toJson(deleteMushroomGenusCommand);
+
+    try {
+      val response = Http(urlString).postData(json).method("DELETE")
+        .header("Content-Type", "application/json")
+        .header("Authorization", "Bearer " + token)
+        .option(HttpOptions.readTimeout(10000)).asString
+      if (response.code != 200) {
+        LOGGER.warning("Error. Http status: " + response.code)
+        throw new RuntimeException("Error. Http status: " + response.code);
+      }
+      else {
+        LOGGER.fine("User updated: " + response.body);
+      }
+    }
+  }
+
+  //  def create(token: String, createCommand: CreateCommand) = {
+  //    val urlString = "http://localhost:8080/api/mushroom-genus"
+  //
+  //    implicit val formats = DefaultFormats
+  //
+  //    val gson = new Gson();
+  //
+  //    val json = gson.toJson(createCommand);
+  //    try {
+  //      val response = Http(urlString).postData(json)
+  //        .header("Content-Type", "application/json")
+  //        .header("Authorization", "Bearer " + token)
+  //        .option(HttpOptions.readTimeout(10000)).asString
+  //      if (response.code != 200) {
+  //        LOGGER.warning("Error. Http status: " + response.code)
+  //        throw new RuntimeException("Error. Http status: " + response.code);
+  //      }
+  //      else {
+  //        LOGGER.fine("User updated: " + response.body);
+  //      }
+  //    }
+  //  }
 }

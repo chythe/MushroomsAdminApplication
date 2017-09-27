@@ -3,7 +3,8 @@ package services
 import java.util.logging.Logger
 
 import com.google.gson.Gson
-import model.{Trip, User}
+import commands.DeleteTripCommand
+import model.Trip
 import net.liftweb.json.{DefaultFormats, parse}
 
 import scalaj.http.{Http, HttpOptions}
@@ -39,7 +40,6 @@ object TripService {
     }
   }
 
-
   def getAll(token: String): Option[Array[Trip]] = {
     val urlString = "http://localhost:8080/api/trips"
 
@@ -53,6 +53,53 @@ object TripService {
     implicit val formats = DefaultFormats
     return Option(parse(response.body).extract[Array[Trip]])
   }
+
+  def delete(token: String, deleteTripCommand: DeleteTripCommand) = {
+    val urlString = "http://localhost:8080/api/trips"
+
+    implicit val formats = DefaultFormats
+
+    val gson = new Gson();
+
+    val json = gson.toJson(deleteTripCommand);
+
+    try {
+      val response = Http(urlString).postData(json).method("DELETE")
+        .header("Content-Type", "application/json")
+        .header("Authorization", "Bearer " + token)
+        .option(HttpOptions.readTimeout(10000)).asString
+      if (response.code != 200) {
+        LOGGER.warning("Error. Http status: " + response.code)
+        throw new RuntimeException("Error. Http status: " + response.code);
+      }
+      else {
+        LOGGER.fine("User updated: " + response.body);
+      }
+    }
+  }
+
+//  def create(token: String, createCommand: CreateCommand) = {
+//    val urlString = "http://localhost:8080/api/trips"
+//
+//    implicit val formats = DefaultFormats
+//
+//    val gson = new Gson();
+//
+//    val json = gson.toJson(createCommand);
+//    try {
+//      val response = Http(urlString).postData(json)
+//        .header("Content-Type", "application/json")
+//        .header("Authorization", "Bearer " + token)
+//        .option(HttpOptions.readTimeout(10000)).asString
+//      if (response.code != 200) {
+//        LOGGER.warning("Error. Http status: " + response.code)
+//        throw new RuntimeException("Error. Http status: " + response.code);
+//      }
+//      else {
+//        LOGGER.fine("User updated: " + response.body);
+//      }
+//    }
+//  }
 
   def toRow(u: Trip): String = {
     return "<tr>" +
