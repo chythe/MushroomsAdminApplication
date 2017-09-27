@@ -12,7 +12,7 @@
     <content>
         <VBox prefHeight="200.0" prefWidth="100.0">
             <children>
-                <TableView fx:id="mushroomClassTable" prefHeight="200.0" prefWidth="200.0" editable="true">
+                <TableView fx:id="mushroomClassTable" prefHeight="600.0" prefWidth="200.0" editable="true">
                     <columns>
                         <TableColumn prefWidth="75.0" text="ID" >
                             <cellValueFactory>

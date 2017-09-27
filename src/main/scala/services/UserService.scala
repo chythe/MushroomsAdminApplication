@@ -90,7 +90,7 @@ object UserService {
         .header("Content-Type", "application/json")
         .header("Authorization", "Bearer " + token)
         .option(HttpOptions.readTimeout(10000)).asString
-      if (response.code != 200) {
+      if (response.code != 201) {
         LOGGER.warning("Error. Http status: " + response.code)
         throw new RuntimeException("Error. Http status: " + response.code);
       }
