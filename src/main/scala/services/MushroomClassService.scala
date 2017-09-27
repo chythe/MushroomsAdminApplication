@@ -62,7 +62,7 @@ object MushroomClassService {
 
     try {
       val response = Http(urlString).method("DELETE")
-        .header("Content-Type", "application/json")
+        .header("Content-Type", "application/x-www-form-urlencoded")
         .header("Authorization", "Bearer " + token)
         .option(HttpOptions.readTimeout(10000)).asString
       if (response.code != 200) {
