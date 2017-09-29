@@ -1,3 +1,7 @@
+## Aplikacja webowa:
+
+https://github.com/pablito1410/MushroomsWebApp
+
 ## Frameworki
 
 Http:
@@ -10,4 +14,4 @@ Json:
 
 W pole address wpisujemy http://localhost:8080
 
-W pola email i password podajemy email i has≥o Ûwczeúnie zarejestrowanego uøytkownika
+W pola email i password podajemy email i has≈Ço √≥wcze≈õnie zarejestrowanego u≈ºytkownika
